@@ -609,16 +609,34 @@
                 const data = await response.json();
                 console.log('API完整响应:', data);
                 
-                // 根据PanSou API文档解析数据
+                // 修复: 适配实际的API响应格式
                 let results = [];
                 let total = 0;
                 
-                if (data.results && Array.isArray(data.results)) {
-                    // res=results 或 res=all 的情况
+                // 检查成功状态 - 支持 code: 0 和 code: 200
+                const isSuccess = (data.code === 0 || data.code === 200) && data.message === 'success';
+                
+                if (isSuccess && data.data) {
+                    if (Array.isArray(data.data)) {
+                        // 直接是结果数组: {code: 0, data: [...]}
+                        results = data.data;
+                        total = data.total || data.data.length;
+                    } else if (data.data.results && Array.isArray(data.data.results)) {
+                        // 嵌套的results数组: {code: 0, data: {results: [...]}}
+                        results = data.data.results;
+                        total = data.data.total || data.data.results.length;
+                    } else if (data.data.merged_by_type) {
+                        // merged_by_type格式: {code: 0, data: {merged_by_type: {...}}}
+                        console.log('收到merged_by_type格式，正在转换...');
+                        results = convertMergedToResults(data.data.merged_by_type);
+                        total = results.length;
+                    }
+                } else if (data.results && Array.isArray(data.results)) {
+                    // 直接返回results数组
                     results = data.results;
                     total = data.total || data.results.length;
                 } else if (data.merged_by_type) {
-                    // res=merge 的情况，需要从merged_by_type中提取
+                    // 直接返回merged_by_type
                     console.log('收到merged_by_type格式，正在转换...');
                     results = convertMergedToResults(data.merged_by_type);
                     total = results.length;
