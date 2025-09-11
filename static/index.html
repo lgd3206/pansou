@@ -463,13 +463,13 @@
     </div>
 
     <script>
-        // 配置 - 根据您的实际后端API调整
-     const CONFIG = {
-    API_BASE: '/api',  // 改为相对路径
-    ITEMS_PER_PAGE: 20,
-    MAX_RETRY: 3,
-    TIMEOUT: 10000
-};
+        // 配置
+        const CONFIG = {
+            API_BASE: '/api',
+            ITEMS_PER_PAGE: 20,
+            MAX_RETRY: 3,
+            TIMEOUT: 10000
+        };
         
         let currentResults = [];
         let currentFilter = 'all';
@@ -520,7 +520,7 @@
             }
         }
 
-        // 搜索功能（带重试机制和备用API）
+        // 搜索功能（修复后的版本）
         async function performSearch(query = null, page = 1) {
             const searchInput = document.getElementById('searchInput');
             const keyword = query || searchInput.value.trim();
@@ -569,18 +569,44 @@
                         }
 
                         const data = await response.json();
+                        console.log('API返回数据:', data); // 调试日志
                         
-                        // 验证返回数据格式
+                        // 验证返回数据格式并兼容不同格式
                         if (!data || typeof data !== 'object') {
                             throw new Error('API返回数据格式无效');
                         }
 
-                        currentResults = data.data || data.results || [];
-                        totalPages = data.totalPages || Math.ceil((data.total || currentResults.length) / CONFIG.ITEMS_PER_PAGE);
+                        // 兼容多种API响应格式
+                        let results = [];
+                        let total = 0;
                         
-                        console.log(`搜索成功，找到 ${currentResults.length} 个结果`);
+                        if (Array.isArray(data)) {
+                            // 直接返回数组格式
+                            results = data;
+                            total = data.length;
+                        } else if (data.data && Array.isArray(data.data)) {
+                            // {data: [...], total: 100} 格式
+                            results = data.data;
+                            total = data.total || data.data.length;
+                        } else if (data.results && Array.isArray(data.results)) {
+                            // {results: [...], total: 100} 格式
+                            results = data.results;
+                            total = data.total || data.results.length;
+                        } else if (data.items && Array.isArray(data.items)) {
+                            // {items: [...], total: 100} 格式
+                            results = data.items;
+                            total = data.total || data.items.length;
+                        } else {
+                            console.error('无法识别的API响应格式:', data);
+                            throw new Error('API返回的数据格式不受支持');
+                        }
+
+                        currentResults = results;
+                        totalPages = Math.ceil(total / CONFIG.ITEMS_PER_PAGE);
+                        
+                        console.log(`搜索成功，找到 ${results.length} 个结果，总共 ${total} 个`);
                         displayResults(currentResults);
-                        updateResultsCount(currentResults.length, data.total);
+                        updateResultsCount(currentResults.length, total);
                         updatePagination();
                         setLoading(false);
                         return;
@@ -590,7 +616,7 @@
                         lastError = error;
                         
                         if (attempt < CONFIG.MAX_RETRY) {
-                            // 等待后重试，Railway冷启动可能需要更长时间
+                            // 等待后重试
                             await new Promise(resolve => setTimeout(resolve, 2000 * attempt));
                             continue;
                         }
@@ -659,11 +685,24 @@
             performSearch(keyword);
         }
 
-        // 显示结果
+        // 显示结果（修复后的版本）
         function displayResults(results) {
             const resultsGrid = document.getElementById('resultsGrid');
             
-            if (!results || results.length === 0) {
+            // 确保results是数组
+            if (!Array.isArray(results)) {
+                console.error('displayResults收到非数组数据:', results);
+                resultsGrid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">❌</div>
+                        <h3>数据格式错误</h3>
+                        <p>收到的搜索结果格式不正确</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            if (results.length === 0) {
                 resultsGrid.innerHTML = `
                     <div class="empty-state">
                         <div class="empty-icon">🔍</div>
@@ -677,7 +716,10 @@
             // 过滤结果
             const filteredResults = currentFilter === 'all' 
                 ? results 
-                : results.filter(item => getPlatformType(item.platform) === currentFilter);
+                : results.filter(item => {
+                    const platform = item.platform || item.source || '';
+                    return getPlatformType(platform) === currentFilter;
+                });
 
             if (filteredResults.length === 0) {
                 resultsGrid.innerHTML = `
@@ -692,12 +734,12 @@
 
             const html = filteredResults.map(item => `
                 <div class="result-item">
-                    <div class="result-title">${escapeHtml(item.title || item.name || '未知资源')}</div>
+                    <div class="result-title">${escapeHtml(item.title || item.name || item.filename || '未知资源')}</div>
                     <div class="result-meta">
-                        <span class="platform-tag">${getPlatformName(item.platform)}</span>
-                        <span class="result-size">${formatSize(item.size)}</span>
+                        <span class="platform-tag">${getPlatformName(item.platform || item.source || '')}</span>
+                        <span class="result-size">${formatSize(item.size || item.filesize || '')}</span>
                     </div>
-                    <a href="${item.url || item.link || '#'}" target="_blank" class="result-link" rel="noopener noreferrer">
+                    <a href="${item.url || item.link || item.download_url || '#'}" target="_blank" class="result-link" rel="noopener noreferrer">
                         获取资源 →
                     </a>
                 </div>
