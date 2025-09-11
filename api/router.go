@@ -1,16 +1,6 @@
 package api
 
 import (
-	"github.com/gin-gonic/gin"
-	"pansou/config"
-	"pansou/service"
-	"pansou/util"
-)
-
-// SetupRouter 设置路由
-package api
-
-import (
 	"strings"
 	"github.com/gin-gonic/gin"
 	"pansou/config"
@@ -77,8 +67,6 @@ func SetupRouter(searchService *service.SearchService) *gin.Engine {
 		})
 	}
 	
-	// ===== 新增部分：静态文件服务 =====
-	
 	// 静态文件服务 - 提供CSS、JS、图片等静态资源
 	r.Static("/static", "./static")
 	
@@ -128,10 +116,3 @@ func SetupRouter(searchService *service.SearchService) *gin.Engine {
 	
 	return r
 }
-			
-			c.JSON(200, response)
-		})
-	}
-	
-	return r
-} 
