@@ -352,3 +352,44 @@ func printServiceInfo(port string, pluginManager *plugin.PluginManager) {
 		}
 	}
 }
+package main
+
+import (
+    "net/http"
+    "github.com/gin-gonic/gin"
+)
+
+func main() {
+    r := gin.Default()
+    
+    // 现有的API路由
+    api := r.Group("/api")
+    {
+        api.GET("/search", searchHandler) // 您现有的搜索处理函数
+        api.GET("/health", healthHandler) // 添加健康检查
+    }
+    
+    // 添加静态文件服务
+    r.Static("/static", "./static")
+    
+    // 处理前端路由 - 所有非API请求都返回index.html
+    r.NoRoute(func(c *gin.Context) {
+        // 如果是API请求但没有匹配到，返回404
+        if strings.HasPrefix(c.Request.URL.Path, "/api") {
+            c.JSON(404, gin.H{"error": "API endpoint not found"})
+            return
+        }
+        // 其他请求返回前端页面
+        c.File("./static/index.html")
+    })
+    
+    r.Run(":8080")
+}
+
+// 添加健康检查端点
+func healthHandler(c *gin.Context) {
+    c.JSON(200, gin.H{
+        "status": "ok",
+        "message": "Service is running",
+    })
+}
