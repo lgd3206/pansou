@@ -1,6 +1,7 @@
 package api
 
 import (
+	"os"
 	"strings"
 	"github.com/gin-gonic/gin"
 	"pansou/config"
@@ -65,7 +66,71 @@ func SetupRouter(searchService *service.SearchService) *gin.Engine {
 			
 			c.JSON(200, response)
 		})
+		
+		// 临时调试端点 - 检查文件状态
+		api.GET("/debug", func(c *gin.Context) {
+			workingDir, _ := os.Getwd()
+			
+			// 检查静态目录
+			staticDirInfo, staticDirErr := os.Stat("./static")
+			staticDirExists := staticDirErr == nil
+			
+			// 检查index.html文件
+			indexFileInfo, indexFileErr := os.Stat("./static/index.html")
+			indexFileExists := indexFileErr == nil
+			
+			// 列出当前目录内容
+			currentDirFiles := []string{}
+			if files, err := os.ReadDir("."); err == nil {
+				for _, file := range files {
+					currentDirFiles = append(currentDirFiles, file.Name())
+				}
+			}
+			
+			// 列出static目录内容
+			staticDirFiles := []string{}
+			if files, err := os.ReadDir("./static"); err == nil {
+				for _, file := range files {
+					staticDirFiles = append(staticDirFiles, file.Name())
+				}
+			}
+			
+			response := gin.H{
+				"working_directory": workingDir,
+				"static_dir_exists": staticDirExists,
+				"index_html_exists": indexFileExists,
+				"current_dir_files": currentDirFiles,
+				"static_dir_files": staticDirFiles,
+			}
+			
+			if staticDirErr != nil {
+				response["static_dir_error"] = staticDirErr.Error()
+			} else {
+				response["static_dir_info"] = gin.H{
+					"name": staticDirInfo.Name(),
+					"is_dir": staticDirInfo.IsDir(),
+					"mode": staticDirInfo.Mode().String(),
+				}
+			}
+			
+			if indexFileErr != nil {
+				response["index_file_error"] = indexFileErr.Error()
+			} else {
+				response["index_file_info"] = gin.H{
+					"name": indexFileInfo.Name(),
+					"size": indexFileInfo.Size(),
+					"mode": indexFileInfo.Mode().String(),
+				}
+			}
+			
+			c.JSON(200, response)
+		})
 	}
+	
+	// 临时测试根路径 - 返回简单文本
+	r.GET("/test", func(c *gin.Context) {
+		c.String(200, "服务器工作正常！这是测试页面。")
+	})
 	
 	// 静态文件服务 - 提供CSS、JS、图片等静态资源
 	r.Static("/static", "./static")
@@ -83,6 +148,7 @@ func SetupRouter(searchService *service.SearchService) *gin.Engine {
 					"GET /api/health",
 					"GET /api/search",
 					"POST /api/search",
+					"GET /api/debug",
 				},
 			})
 			return
@@ -91,6 +157,33 @@ func SetupRouter(searchService *service.SearchService) *gin.Engine {
 		// 如果是静态资源请求但文件不存在，返回404状态
 		if strings.HasPrefix(path, "/static") {
 			c.Status(404)
+			return
+		}
+		
+		// 检查index.html是否存在，如果不存在返回错误信息
+		if _, err := os.Stat("./static/index.html"); os.IsNotExist(err) {
+			c.HTML(200, "", `
+<!DOCTYPE html>
+<html>
+<head>
+    <title>文件缺失</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .error { color: red; }
+        .info { background: #f0f0f0; padding: 10px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>静态文件缺失</h1>
+    <p class="error">./static/index.html 文件不存在</p>
+    <div class="info">
+        <p>请访问 <a href="/api/debug">/api/debug</a> 查看详细信息</p>
+        <p>请访问 <a href="/test">/test</a> 测试服务器基本功能</p>
+        <p>请访问 <a href="/api/health">/api/health</a> 检查API状态</p>
+    </div>
+    <p>当前请求路径: ` + path + `</p>
+</body>
+</html>`)
 			return
 		}
 		
