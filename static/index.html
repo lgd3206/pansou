@@ -464,12 +464,12 @@
 
     <script>
         // 配置 - 根据您的实际后端API调整
-        const CONFIG = {
-            API_BASE: 'https://www.ziyuanso.net/api',
-            ITEMS_PER_PAGE: 20,
-            MAX_RETRY: 3,
-            TIMEOUT: 10000 // 10秒超时
-        };
+     const CONFIG = {
+    API_BASE: '/api',  // 改为相对路径
+    ITEMS_PER_PAGE: 20,
+    MAX_RETRY: 3,
+    TIMEOUT: 10000
+};
         
         let currentResults = [];
         let currentFilter = 'all';
