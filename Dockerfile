@@ -43,7 +43,7 @@ RUN mkdir -p /app/cache
 # 从构建阶段复制可执行文件
 # buildx 会智能地从对应平台的 builder 中复制正确的可执行文件
 COPY --from=builder /app/pansou /app/pansou
-
+COPY --from=builder /app/static /app/static
 # 设置工作目录
 WORKDIR /app
 
