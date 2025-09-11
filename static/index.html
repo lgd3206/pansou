@@ -106,6 +106,12 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
         }
 
+        .search-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: translateY(-50%);
+        }
+
         /* 快速标签 */
         .quick-tags {
             display: flex;
@@ -278,6 +284,46 @@
             color: #ddd;
         }
 
+        /* 错误提示 */
+        .error-message {
+            background: #ff6b6b;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        /* 分页 */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .page-btn {
+            padding: 8px 12px;
+            border: 1px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .page-btn:hover,
+        .page-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         /* 响应式设计 */
         @media (max-width: 768px) {
             .container {
@@ -380,9 +426,11 @@
 
         <!-- 搜索区域 -->
         <div class="search-section">
+            <div class="error-message" id="errorMessage"></div>
+            
             <div class="search-container">
                 <input type="text" class="search-input" placeholder="输入关键词搜索网盘资源..." id="searchInput">
-                <button class="search-btn" onclick="performSearch()">🔍</button>
+                <button class="search-btn" onclick="performSearch()" id="searchBtn">🔍</button>
             </div>
             
             <div class="quick-tags">
@@ -410,61 +458,199 @@
                 </div>
             </div>
             <div class="results-grid" id="resultsGrid"></div>
+            <div class="pagination" id="pagination"></div>
         </div>
     </div>
 
     <script>
-        // 配置
-        const API_BASE = 'https://www.ziyuanso.net/api';
+        // 配置 - 根据您的实际后端API调整
+        const CONFIG = {
+            API_BASE: 'https://www.ziyuanso.net/api',
+            ITEMS_PER_PAGE: 20,
+            MAX_RETRY: 3,
+            TIMEOUT: 10000 // 10秒超时
+        };
         
         let currentResults = [];
         let currentFilter = 'all';
+        let currentPage = 1;
+        let totalPages = 1;
+        let currentKeyword = '';
 
-        // 搜索功能
-        async function performSearch(query = null) {
+        // 显示错误消息
+        function showError(message) {
+            const errorElement = document.getElementById('errorMessage');
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+            setTimeout(() => {
+                errorElement.style.display = 'none';
+            }, 5000);
+        }
+
+        // 设置加载状态
+        function setLoading(isLoading) {
+            const searchBtn = document.getElementById('searchBtn');
+            const searchInput = document.getElementById('searchInput');
+            
+            searchBtn.disabled = isLoading;
+            searchInput.disabled = isLoading;
+            
+            if (isLoading) {
+                searchBtn.innerHTML = '⏳';
+            } else {
+                searchBtn.innerHTML = '🔍';
+            }
+        }
+
+        // 带超时的fetch
+        async function fetchWithTimeout(url, options = {}) {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), CONFIG.TIMEOUT);
+            
+            try {
+                const response = await fetch(url, {
+                    ...options,
+                    signal: controller.signal
+                });
+                clearTimeout(timeoutId);
+                return response;
+            } catch (error) {
+                clearTimeout(timeoutId);
+                throw error;
+            }
+        }
+
+        // 搜索功能（带重试机制和备用API）
+        async function performSearch(query = null, page = 1) {
             const searchInput = document.getElementById('searchInput');
             const keyword = query || searchInput.value.trim();
             
             if (!keyword) {
-                alert('请输入搜索关键词');
+                showError('请输入搜索关键词');
                 return;
             }
+
+            currentKeyword = keyword;
+            currentPage = page;
 
             const resultsSection = document.getElementById('resultsSection');
             const resultsGrid = document.getElementById('resultsGrid');
             
             // 显示加载状态
+            setLoading(true);
             resultsSection.style.display = 'block';
             resultsGrid.innerHTML = `
                 <div class="loading">
                     <div class="loading-spinner"></div>
                     <p>正在搜索中，请稍候...</p>
+                    <p style="font-size: 0.9rem; color: #888; margin-top: 10px;">首次访问可能需要等待服务启动...</p>
                 </div>
             `;
 
-            try {
-                const response = await fetch(`${API_BASE}/search?keyword=${encodeURIComponent(keyword)}&page=1&limit=50`);
-                
-                if (!response.ok) {
-                    throw new Error(`搜索失败: ${response.status}`);
-                }
-
-                const data = await response.json();
-                currentResults = data.data || [];
-                
-                displayResults(currentResults);
-                updateResultsCount(currentResults.length);
-                
-            } catch (error) {
-                console.error('搜索错误:', error);
-                resultsGrid.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">⚠️</div>
-                        <h3>搜索失败</h3>
-                        <p>网络连接异常，请稍后重试</p>
-                    </div>
-                `;
+            const apiUrls = [CONFIG.API_BASE];
+            if (CONFIG.FALLBACK_API) {
+                apiUrls.push(CONFIG.FALLBACK_API);
             }
+
+            let lastError = null;
+            
+            // 尝试不同的API地址
+            for (const apiBase of apiUrls) {
+                // 对每个API地址进行重试
+                for (let attempt = 1; attempt <= CONFIG.MAX_RETRY; attempt++) {
+                    try {
+                        const url = `${apiBase}/search?keyword=${encodeURIComponent(keyword)}&page=${page}&limit=${CONFIG.ITEMS_PER_PAGE}`;
+                        console.log(`尝试请求: ${url} (尝试 ${attempt}/${CONFIG.MAX_RETRY})`);
+                        
+                        const response = await fetchWithTimeout(url);
+                        
+                        if (!response.ok) {
+                            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                        }
+
+                        const data = await response.json();
+                        
+                        // 验证返回数据格式
+                        if (!data || typeof data !== 'object') {
+                            throw new Error('API返回数据格式无效');
+                        }
+
+                        currentResults = data.data || data.results || [];
+                        totalPages = data.totalPages || Math.ceil((data.total || currentResults.length) / CONFIG.ITEMS_PER_PAGE);
+                        
+                        console.log(`搜索成功，找到 ${currentResults.length} 个结果`);
+                        displayResults(currentResults);
+                        updateResultsCount(currentResults.length, data.total);
+                        updatePagination();
+                        setLoading(false);
+                        return;
+                        
+                    } catch (error) {
+                        console.error(`搜索失败 (${apiBase}, 尝试 ${attempt}):`, error);
+                        lastError = error;
+                        
+                        if (attempt < CONFIG.MAX_RETRY) {
+                            // 等待后重试，Railway冷启动可能需要更长时间
+                            await new Promise(resolve => setTimeout(resolve, 2000 * attempt));
+                            continue;
+                        }
+                    }
+                }
+            }
+
+            // 所有尝试都失败了
+            setLoading(false);
+            let errorMessage = '搜索失败，请稍后重试';
+            let troubleshootingTips = '';
+            
+            if (lastError.name === 'AbortError') {
+                errorMessage = '请求超时';
+                troubleshootingTips = '服务可能正在启动，请稍等几分钟后重试';
+            } else if (lastError.message.includes('HTTP 404')) {
+                errorMessage = 'API接口未找到';
+                troubleshootingTips = '请确认后端服务已正确部署';
+            } else if (lastError.message.includes('HTTP 50')) {
+                errorMessage = '服务器内部错误';
+                troubleshootingTips = '后端服务可能出现问题';
+            } else if (lastError.message.includes('fetch')) {
+                errorMessage = '网络连接失败';
+                troubleshootingTips = '请检查网络连接或稍后重试';
+            }
+
+            showError(errorMessage + (troubleshootingTips ? ': ' + troubleshootingTips : ''));
+            resultsGrid.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-icon">⚠️</div>
+                    <h3>搜索失败</h3>
+                    <p>${errorMessage}</p>
+                    ${troubleshootingTips ? `<p style="font-size: 0.9rem; color: #666; margin: 10px 0;">${troubleshootingTips}</p>` : ''}
+                    <button onclick="performSearch('${currentKeyword}', ${currentPage})" style="margin-top: 15px; padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer;">重试</button>
+                    <button onclick="testApiConnection()" style="margin-left: 10px; padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 6px; cursor: pointer;">测试连接</button>
+                </div>
+            `;
+        }
+
+        // 测试API连接
+        async function testApiConnection() {
+            const apiUrls = [CONFIG.API_BASE];
+            if (CONFIG.FALLBACK_API) {
+                apiUrls.push(CONFIG.FALLBACK_API);
+            }
+
+            for (const apiUrl of apiUrls) {
+                try {
+                    console.log(`测试连接: ${apiUrl}`);
+                    const response = await fetchWithTimeout(`${apiUrl}/health`);
+                    if (response.ok) {
+                        showError(`✅ ${apiUrl} 连接正常`);
+                        return;
+                    }
+                } catch (error) {
+                    console.error(`连接测试失败 (${apiUrl}):`, error);
+                }
+            }
+            
+            showError('❌ 所有API连接均失败，请检查服务状态');
         }
 
         // 快速搜索
@@ -506,46 +692,84 @@
 
             const html = filteredResults.map(item => `
                 <div class="result-item">
-                    <div class="result-title">${escapeHtml(item.title || '未知资源')}</div>
+                    <div class="result-title">${escapeHtml(item.title || item.name || '未知资源')}</div>
                     <div class="result-meta">
                         <span class="platform-tag">${getPlatformName(item.platform)}</span>
                         <span class="result-size">${formatSize(item.size)}</span>
                     </div>
-                    <a href="${item.url || '#'}" target="_blank" class="result-link" rel="noopener noreferrer">
+                    <a href="${item.url || item.link || '#'}" target="_blank" class="result-link" rel="noopener noreferrer">
                         获取资源 →
                     </a>
                 </div>
             `).join('');
 
             resultsGrid.innerHTML = html;
-            updateResultsCount(filteredResults.length);
         }
 
         // 更新结果计数
-        function updateResultsCount(count) {
-            document.getElementById('resultsCount').textContent = `找到 ${count} 个结果`;
+        function updateResultsCount(count, total = null) {
+            const text = total ? `找到 ${total} 个结果，显示第 ${currentPage} 页` : `找到 ${count} 个结果`;
+            document.getElementById('resultsCount').textContent = text;
+        }
+
+        // 更新分页
+        function updatePagination() {
+            const pagination = document.getElementById('pagination');
+            
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+
+            let html = '';
+            
+            // 上一页
+            html += `<button class="page-btn" ${currentPage <= 1 ? 'disabled' : ''} onclick="changePage(${currentPage - 1})">上一页</button>`;
+            
+            // 页码
+            const maxVisiblePages = 5;
+            let start = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+            let end = Math.min(totalPages, start + maxVisiblePages - 1);
+            
+            if (end - start < maxVisiblePages - 1) {
+                start = Math.max(1, end - maxVisiblePages + 1);
+            }
+
+            for (let i = start; i <= end; i++) {
+                html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
+            }
+            
+            // 下一页
+            html += `<button class="page-btn" ${currentPage >= totalPages ? 'disabled' : ''} onclick="changePage(${currentPage + 1})">下一页</button>`;
+            
+            pagination.innerHTML = html;
+        }
+
+        // 切换页面
+        function changePage(page) {
+            if (page < 1 || page > totalPages || page === currentPage) return;
+            performSearch(currentKeyword, page);
         }
 
         // 获取平台类型
         function getPlatformType(platform) {
+            if (!platform) return 'other';
+            
+            const platformLower = platform.toLowerCase();
             const platformMap = {
-                'baidu': 'baidu',
-                'baidupan': 'baidu',
-                '百度网盘': 'baidu',
-                'aliyun': 'aliyun',
-                'alipan': 'aliyun',
-                '阿里云盘': 'aliyun',
-                'lanzou': 'lanzou',
-                '蓝奏云': 'lanzou',
-                'quark': 'quark',
-                '夸克': 'quark'
+                'baidu': ['baidu', 'baidupan', '百度'],
+                'aliyun': ['aliyun', 'alipan', '阿里', 'ali'],
+                'lanzou': ['lanzou', '蓝奏'],
+                'quark': ['quark', '夸克']
             };
             
-            const key = Object.keys(platformMap).find(k => 
-                platform && platform.toLowerCase().includes(k.toLowerCase())
-            );
+            for (const [type, keywords] of Object.entries(platformMap)) {
+                if (keywords.some(keyword => platformLower.includes(keyword))) {
+                    return type;
+                }
+            }
             
-            return platformMap[key] || 'other';
+            return 'other';
         }
 
         // 获取平台名称
@@ -566,12 +790,19 @@
             if (!size) return '未知大小';
             
             if (typeof size === 'string') {
-                return size;
+                // 如果已经是格式化的字符串，直接返回
+                if (/\d+(\.\d+)?\s*(B|KB|MB|GB|TB)/i.test(size)) {
+                    return size;
+                }
+                // 尝试解析数字
+                const parsed = parseFloat(size);
+                if (isNaN(parsed)) return size;
+                size = parsed;
             }
             
             const units = ['B', 'KB', 'MB', 'GB', 'TB'];
             let index = 0;
-            let fileSize = parseInt(size);
+            let fileSize = Number(size);
             
             while (fileSize >= 1024 && index < units.length - 1) {
                 fileSize /= 1024;
@@ -583,25 +814,22 @@
 
         // HTML转义
         function escapeHtml(text) {
+            if (!text) return '';
             const div = document.createElement('div');
             div.textContent = text;
             return div.innerHTML;
         }
 
-        // 平台过滤
+        // 页面初始化
         document.addEventListener('DOMContentLoaded', function() {
             const platformBtns = document.querySelectorAll('.platform-btn');
             
+            // 平台过滤器
             platformBtns.forEach(btn => {
                 btn.addEventListener('click', function() {
-                    // 更新按钮状态
                     platformBtns.forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
-                    
-                    // 更新过滤器
                     currentFilter = this.dataset.platform;
-                    
-                    // 重新显示结果
                     displayResults(currentResults);
                 });
             });
@@ -612,6 +840,21 @@
                     performSearch();
                 }
             });
+
+            // 输入框自动清理
+            document.getElementById('searchInput').addEventListener('input', function(e) {
+                // 移除特殊字符，防止注入
+                this.value = this.value.replace(/[<>\"']/g, '');
+            });
+        });
+
+        // 全局错误处理
+        window.addEventListener('error', function(e) {
+            console.error('页面错误:', e.error);
+        });
+
+        window.addEventListener('unhandledrejection', function(e) {
+            console.error('未处理的Promise错误:', e.reason);
         });
     </script>
 </body>
