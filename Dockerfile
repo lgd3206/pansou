@@ -23,21 +23,17 @@ COPY --from=builder /app/static /app/static
 WORKDIR /app
 EXPOSE 8888
 
-# ✅ 修改这里：移除硬编码，设置合理的默认值
 ENV ENABLED_PLUGINS=labi,zhizhen,shandian,duoduo,muou,wanou,hunhepan,jikepan,panwiki,pansearch,panta,qupansou,susu,xuexizhinan,panyq,ouge,huban,cyg,erxiao,miaoso \
-    ASYNC_PLUGIN_ENABLED=true
-CACHE_PATH=/app/cache \
+    ASYNC_PLUGIN_ENABLED=true \
+    CACHE_PATH=/app/cache \
     CACHE_ENABLED=true \
     TZ=Asia/Shanghai \
-    ASYNC_PLUGIN_ENABLED=true \
     ASYNC_RESPONSE_TIMEOUT=8 \
     ASYNC_MAX_BACKGROUND_WORKERS=30 \
     ASYNC_MAX_BACKGROUND_TASKS=150 \
     ASYNC_CACHE_TTL_HOURS=2 \
-    ASYNC_LOG_ENABLED=true
-
-# 🎯 关键修改：不设置 CHANNELS 和 ENABLED_PLUGINS 的默认值
-# 这样 docker-compose.yml 中的配置就能生效
+    ASYNC_LOG_ENABLED=true \
+    CHANNELS=tgsearchers3
 
 ARG VERSION=dev
 ARG BUILD_DATE=unknown
