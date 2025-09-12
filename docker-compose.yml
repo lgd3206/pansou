@@ -17,11 +17,13 @@ services:
       - CACHE_MAX_SIZE=100
       - CACHE_TTL=60
       - ASYNC_PLUGIN_ENABLED=true
-      - ASYNC_RESPONSE_TIMEOUT=4
-      - ASYNC_MAX_BACKGROUND_WORKERS=20
-      - ASYNC_MAX_BACKGROUND_TASKS=100
-      - ASYNC_CACHE_TTL_HOURS=1
-      # 如果需要代理，取消下面的注释并设置代理地址
+      - ASYNC_RESPONSE_TIMEOUT=8
+      - ASYNC_MAX_BACKGROUND_WORKERS=30
+      - ASYNC_MAX_BACKGROUND_TASKS=150
+      - ASYNC_CACHE_TTL_HOURS=2
+# 调试日志
+      - ASYNC_LOG_ENABLED=true
+      # 如果在国内，可能需要代理访问TG
       # - PROXY=socks5://proxy:7897
     volumes:
       - pansou-cache:/app/cache
