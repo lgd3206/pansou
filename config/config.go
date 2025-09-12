@@ -102,7 +102,8 @@ func Init() {
 func getDefaultChannels() []string {
 	channelsEnv := os.Getenv("CHANNELS")
 	if channelsEnv == "" {
-		return []string{"tgsearchers3"}
+		// ✅ 不设置默认值，让环境变量配置生效
+		return []string{}  // 返回空切片而不是硬编码值
 	}
 	return strings.Split(channelsEnv, ",")
 }
@@ -307,16 +308,14 @@ func getAsyncPluginEnabled() bool {
 func getEnabledPlugins() []string {
 	plugins, exists := os.LookupEnv("ENABLED_PLUGINS")
 	if !exists {
-		// 未设置环境变量时返回nil，表示不启用任何插件
-		return nil
-	}
-	
-	if plugins == "" {
-		// 设置为空字符串，也表示不启用任何插件
+		// ✅ 环境变量不存在时，返回空切片让docker-compose配置生效
 		return []string{}
 	}
 	
-	// 按逗号分割插件名
+	if plugins == "" {
+		return []string{}
+	}
+	
 	result := make([]string, 0)
 	for _, plugin := range strings.Split(plugins, ",") {
 		plugin = strings.TrimSpace(plugin)
