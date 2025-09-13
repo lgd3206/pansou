@@ -630,13 +630,58 @@
             document.getElementById('pagination').style.display = 'none';
 
             try {
-                const url = `${CONFIG.API_BASE}/search?kw=${encodeURIComponent(keyword)}&res=results&src=all&page=${page}`;
-                console.log('请求URL:', url);
+                // 针对 Go PanSou 服务的多端点自动检测
+                const possibleEndpoints = [
+                    `/search?kw=${encodeURIComponent(keyword)}&page=${page}`,
+                    `/search?q=${encodeURIComponent(keyword)}&page=${page}`,
+                    `/search?keyword=${encodeURIComponent(keyword)}&page=${page}`,
+                    `/search?kw=${encodeURIComponent(keyword)}&src=all&page=${page}`,
+                    `/search?kw=${encodeURIComponent(keyword)}&res=results&page=${page}`,
+                    `/api/search?kw=${encodeURIComponent(keyword)}&page=${page}`
+                ];
                 
-                const response = await fetchWithTimeout(url);
+                let response = null;
+                let finalUrl = '';
+                let data = null;
                 
-                const data = await response.json();
-                console.log('成功的API端点:', finalUrl);
+                // 尝试不同的API端点直到找到有效的
+                for (const endpoint of possibleEndpoints) {
+                    try {
+                        console.log('尝试API端点:', endpoint);
+                        const testResponse = await fetchWithTimeout(endpoint);
+                        
+                        if (testResponse.ok) {
+                            const testData = await testResponse.json();
+                            console.log('端点响应:', endpoint, testData);
+                            
+                            // 检查响应是否包含有效数据
+                            const hasValidData = testData && (
+                                testData.code !== undefined || 
+                                Array.isArray(testData) || 
+                                testData.data || 
+                                testData.results ||
+                                testData.merged_by_type
+                            );
+                            
+                            if (hasValidData) {
+                                response = testResponse;
+                                finalUrl = endpoint;
+                                data = testData;
+                                console.log('找到有效API端点:', endpoint);
+                                break;
+                            }
+                        }
+                    } catch (e) {
+                        console.log('端点失败:', endpoint, e.message);
+                        continue;
+                    }
+                }
+                
+                if (!response || !data) {
+                    throw new Error('所有API端点都无法访问或返回无效数据');
+                }
+                
+                console.log('使用API端点:', finalUrl);
                 console.log('API完整响应:', data);
                 
                 // 解析结果
