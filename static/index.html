@@ -1,14 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head><!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q5QY3KE9LT"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-Q5QY3KE9LT');
-</script>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>资源搜 - 全网盘资源搜索引擎</title>
@@ -20,998 +12,567 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Microsoft YaHei', sans-serif;
+            background: #f5f7fa;
             min-height: 100vh;
-            overflow-x: hidden;
+            color: #333;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px;
         }
 
-        /* 头部 */
+        /* 头部区域 */
         .header {
-            text-align: center;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px 0;
             margin-bottom: 60px;
-            padding-top: 60px;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .logo {
-            font-size: 3.5rem;
-            font-weight: bold;
-            color: white;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            margin-bottom: 20px;
-            background: linear-gradient(45deg, #ff9a9e, #fecfef, #fecfef);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        .subtitle {
-            font-size: 1.2rem;
-            color: rgba(255,255,255,0.9);
-            margin-bottom: 40px;
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #4285f4, #1a73e8);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1a73e8;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #1a73e8;
+        }
+
+        /* 主要内容区 */
+        .main-content {
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .main-title {
+            font-size: 48px;
+            font-weight: 300;
+            color: #1a73e8;
+            margin-bottom: 20px;
+        }
+
+        .main-subtitle {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 50px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.5;
         }
 
         /* 搜索区域 */
         .search-section {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(20px);
-            border-radius: 25px;
-            padding: 40px;
-            margin-bottom: 40px;
-            border: 1px solid rgba(255,255,255,0.2);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto 60px;
         }
 
         .search-container {
             position: relative;
-            margin-bottom: 30px;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: box-shadow 0.3s;
+        }
+
+        .search-container:hover {
+            box-shadow: 0 6px 30px rgba(0,0,0,0.15);
         }
 
         .search-input {
             width: 100%;
-            padding: 20px 60px 20px 25px;
-            font-size: 1.1rem;
+            padding: 18px 60px 18px 24px;
+            font-size: 16px;
             border: none;
-            border-radius: 50px;
-            background: rgba(255,255,255,0.9);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             outline: none;
-            transition: all 0.3s ease;
+            background: transparent;
         }
 
-        .search-input:focus {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        .search-input::placeholder {
+            color: #999;
         }
 
         .search-btn {
             position: absolute;
-            right: 8px;
+            right: 6px;
             top: 50%;
             transform: translateY(-50%);
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            width: 44px;
+            height: 44px;
+            background: #1a73e8;
             border: none;
-            width: 50px;
-            height: 50px;
             border-radius: 50%;
             color: white;
             cursor: pointer;
-            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            transition: background 0.3s;
+            font-size: 16px;
         }
 
         .search-btn:hover {
-            transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            background: #1557b0;
         }
 
         .search-btn:disabled {
             opacity: 0.6;
             cursor: not-allowed;
-            transform: translateY(-50%);
         }
 
         /* 快速标签 */
         .quick-tags {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .tags-title {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .tags-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
             justify-content: center;
+            gap: 12px;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .tag {
-            background: rgba(255,255,255,0.2);
-            color: white;
+            background: white;
+            color: #666;
             padding: 10px 20px;
-            border-radius: 25px;
+            border-radius: 20px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s;
+            border: 1px solid #e8eaed;
+            font-size: 14px;
         }
 
         .tag:hover {
-            background: rgba(255,255,255,0.3);
-            transform: translateY(-2px);
+            background: #1a73e8;
+            color: white;
+            border-color: #1a73e8;
         }
 
-        /* 结果区域 */
-        .results-section {
-            background: rgba(255,255,255,0.95);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
-            display: none;
+        /* 特色功能区 */
+        .features-section {
+            background: white;
+            padding: 80px 0;
+            margin-top: 100px;
         }
 
-        .results-header {
+        .features-title {
+            text-align: center;
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .features-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 60px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 40px 20px;
+            border-radius: 12px;
+            border: 1px solid #e8eaed;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #4285f4, #1a73e8);
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-            gap: 15px;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 24px;
         }
 
-        .results-count {
-            font-size: 1.1rem;
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #333;
+        }
+
+        .feature-desc {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* 底部区域 */
+        .footer {
+            background: #333;
+            color: #999;
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .footer-link {
+            color: #999;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .footer-link:hover {
+            color: white;
+        }
+
+        .copyright {
+            font-size: 14px;
             color: #666;
         }
 
-        .platform-filter {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
 
-        .platform-btn {
-            padding: 8px 16px;
-            border: 2px solid #667eea;
-            background: white;
-            color: #667eea;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
+            .nav-links {
+                gap: 20px;
+            }
 
-        .platform-btn.active,
-        .platform-btn:hover {
-            background: #667eea;
-            color: white;
-        }
+            .main-title {
+                font-size: 36px;
+            }
 
-        .results-grid {
-            display: grid;
-            gap: 20px;
-        }
+            .main-subtitle {
+                font-size: 16px;
+                padding: 0 20px;
+            }
 
-        .result-item {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-            border: 1px solid #f0f0f0;
-            transition: all 0.3s ease;
-        }
+            .search-section {
+                max-width: 90%;
+            }
 
-        .result-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-        }
+            .tags-container {
+                gap: 8px;
+            }
 
-        .result-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 10px;
-            line-height: 1.4;
-        }
+            .tag {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
 
-        .result-meta {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
 
-        .platform-tag {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        .source-tag {
-            background: #28a745;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        .result-time {
-            color: #888;
-            font-size: 0.8rem;
-        }
-
-        .result-size {
-            color: #888;
-            font-size: 0.9rem;
-        }
-
-        .result-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .result-link {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-
-        .result-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+            .footer-links {
+                flex-direction: column;
+                gap: 15px;
+            }
         }
 
         /* 加载状态 */
         .loading {
-            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .loading-content {
+            background: white;
             padding: 40px;
-            color: #666;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
         }
 
         .loading-spinner {
-            display: inline-block;
             width: 40px;
             height: 40px;
             border: 4px solid #f3f3f3;
-            border-top: 4px solid #667eea;
+            border-top: 4px solid #1a73e8;
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin-bottom: 15px;
+            margin: 0 auto 20px;
         }
 
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
-        /* 空状态 */
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: #888;
-        }
-
-        .empty-icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            color: #ddd;
-        }
-
-        /* 错误提示 */
-        .error-message {
-            background: #ff6b6b;
-            color: white;
-            padding: 12px 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: none;
-        }
-
-        /* 分页 */
-        .pagination {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            margin-top: 30px;
-        }
-
-        .page-btn {
-            padding: 8px 12px;
-            border: 1px solid #667eea;
-            background: white;
-            color: #667eea;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .page-btn:hover,
-        .page-btn.active {
-            background: #667eea;
-            color: white;
-        }
-
-        .page-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-
-            .logo {
-                font-size: 2.5rem;
-            }
-
-            .search-section {
-                padding: 25px 20px;
-            }
-
-            .search-input {
-                padding: 15px 50px 15px 20px;
-                font-size: 1rem;
-            }
-
-            .search-btn {
-                width: 40px;
-                height: 40px;
-                right: 6px;
-            }
-
-            .quick-tags {
-                gap: 8px;
-            }
-
-            .tag {
-                padding: 8px 15px;
-                font-size: 0.9rem;
-            }
-
-            .results-header {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .platform-filter {
-                justify-content: center;
-            }
-        }
-
-        /* 特殊效果 */
-        .floating-shapes {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .shape {
-            position: absolute;
-            opacity: 0.1;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .shape:nth-child(1) {
-            top: 20%;
-            left: 10%;
-            animation-delay: 0s;
-        }
-
-        .shape:nth-child(2) {
-            top: 60%;
-            right: 10%;
-            animation-delay: 2s;
-        }
-
-        .shape:nth-child(3) {
-            bottom: 20%;
-            left: 20%;
-            animation-delay: 4s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-        }
     </style>
 </head>
 <body>
-    <!-- 背景装饰 -->
-    <div class="floating-shapes">
-        <div class="shape" style="width: 80px; height: 80px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
-        <div class="shape" style="width: 120px; height: 120px; background: rgba(255,255,255,0.05); border-radius: 30%;"></div>
-        <div class="shape" style="width: 60px; height: 60px; background: rgba(255,255,255,0.08); border-radius: 50%;"></div>
+    <!-- 加载状态 -->
+    <div class="loading" id="loading">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p>正在搜索中，请稍候...</p>
+        </div>
     </div>
 
-    <div class="container">
-        <!-- 头部 -->
-        <div class="header">
-            <h1 class="logo">资源搜</h1>
-            <p class="subtitle">全网盘资源搜索引擎 - 找你想要的一切资源</p>
-        </div>
-
-        <!-- 搜索区域 -->
-        <div class="search-section">
-            <div class="error-message" id="errorMessage"></div>
-            
-            <div class="search-container">
-                <input type="text" class="search-input" placeholder="输入关键词搜索网盘资源..." id="searchInput">
-                <button class="search-btn" onclick="performSearch()" id="searchBtn">🔍</button>
-            </div>
-            
-            <div class="quick-tags">
-                <span class="tag" onclick="quickSearch('电影')">热门电影</span>
-                <span class="tag" onclick="quickSearch('电视剧')">电视剧</span>
-                <span class="tag" onclick="quickSearch('音乐')">音乐</span>
-                <span class="tag" onclick="quickSearch('软件')">软件</span>
-                <span class="tag" onclick="quickSearch('教程')">教程</span>
-                <span class="tag" onclick="quickSearch('游戏')">游戏</span>
-                <span class="tag" onclick="quickSearch('小说')">小说</span>
-                <span class="tag" onclick="quickSearch('纪录片')">纪录片</span>
+    <!-- 头部 -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">资</div>
+                    <div class="logo-text">资源搜</div>
+                </div>
+                <nav class="nav-links">
+                    <a href="#" class="nav-link">首页</a>
+                    <a href="#" class="nav-link">热门资源</a>
+                    <a href="#" class="nav-link">分类浏览</a>
+                    <a href="#" class="nav-link">关于我们</a>
+                </nav>
             </div>
         </div>
+    </header>
 
-        <!-- 结果区域 -->
-        <div class="results-section" id="resultsSection">
-            <div class="results-header">
-                <div class="results-count" id="resultsCount">找到 0 个结果</div>
-                <div class="platform-filter">
-                    <button class="platform-btn active" data-platform="all">全部</button>
-                    <button class="platform-btn" data-platform="baidu">百度网盘</button>
-                    <button class="platform-btn" data-platform="aliyun">阿里云盘</button>
-                    <button class="platform-btn" data-platform="quark">夸克网盘</button>
-                    <button class="platform-btn" data-platform="tianyi">天翼云盘</button>
-                    <button class="platform-btn" data-platform="115">115网盘</button>
+    <!-- 主要内容 -->
+    <main class="container">
+        <section class="main-content">
+            <h1 class="main-title">全网盘资源搜索引擎</h1>
+            <p class="main-subtitle">汇聚全网优质资源，支持百度网盘、阿里云盘、夸克网盘等主流平台，让您快速找到所需内容</p>
+            
+            <!-- 搜索区域 -->
+            <div class="search-section">
+                <div class="search-container">
+                    <input 
+                        type="text" 
+                        class="search-input" 
+                        placeholder="输入关键词搜索网盘资源..." 
+                        id="searchInput"
+                        maxlength="100"
+                    >
+                    <button class="search-btn" onclick="performSearch()" id="searchBtn">🔍</button>
+                </div>
+                
+                <!-- 快速标签 -->
+                <div class="quick-tags">
+                    <div class="tags-title">热门搜索</div>
+                    <div class="tags-container">
+                        <span class="tag" onclick="quickSearch('热门电影')">热门电影</span>
+                        <span class="tag" onclick="quickSearch('电视剧')">电视剧</span>
+                        <span class="tag" onclick="quickSearch('音乐')">音乐</span>
+                        <span class="tag" onclick="quickSearch('软件')">软件</span>
+                        <span class="tag" onclick="quickSearch('教程')">教程</span>
+                        <span class="tag" onclick="quickSearch('游戏')">游戏</span>
+                        <span class="tag" onclick="quickSearch('小说')">小说</span>
+                        <span class="tag" onclick="quickSearch('纪录片')">纪录片</span>
+                        <span class="tag" onclick="quickSearch('考研资料')">考研资料</span>
+                        <span class="tag" onclick="quickSearch('编程')">编程</span>
+                        <span class="tag" onclick="quickSearch('设计素材')">设计素材</span>
+                        <span class="tag" onclick="quickSearch('英语学习')">英语学习</span>
+                    </div>
                 </div>
             </div>
-            <div class="results-grid" id="resultsGrid"></div>
-            <div class="pagination" id="pagination"></div>
+        </section>
+
+        <!-- 特色功能 -->
+        <section class="features-section">
+            <div class="container">
+                <h2 class="features-title">为什么选择资源搜？</h2>
+                <p class="features-subtitle">专业的网盘资源搜索服务，为您提供最优质的搜索体验</p>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🌐</div>
+                        <h3 class="feature-title">全网覆盖</h3>
+                        <p class="feature-desc">覆盖百度网盘、阿里云盘、夸克网盘等主流平台，资源更全面</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3 class="feature-title">极速搜索</h3>
+                        <p class="feature-desc">采用先进的搜索算法，毫秒级响应，快速找到您需要的资源</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h3 class="feature-title">精准匹配</h3>
+                        <p class="feature-desc">智能语义分析，精准匹配搜索意图，结果更相关更准确</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <h3 class="feature-title">安全可靠</h3>
+                        <p class="feature-desc">严格筛选资源质量，确保搜索结果安全可靠，无恶意链接</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 底部 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="#" class="footer-link">关于我们</a>
+                <a href="#" class="footer-link">使用条款</a>
+                <a href="#" class="footer-link">隐私政策</a>
+                <a href="#" class="footer-link">联系我们</a>
+                <a href="#" class="footer-link">意见反馈</a>
+            </div>
+            <div class="copyright">
+                © 2025 资源搜. 全网盘资源搜索引擎. 仅供学习交流使用.
+            </div>
         </div>
-    </div>
+    </footer>
 
     <script>
-        // 配置
-        const CONFIG = {
-            API_BASE: '/api',
-            ITEMS_PER_PAGE: 20,
-            MAX_RETRY: 3,
-            TIMEOUT: 45000
-        };
-        
-        let currentResults = [];
-        let currentFilter = 'all';
-        let currentPage = 1;
-        let totalPages = 1;
-        let currentKeyword = '';
-
-        // 显示错误消息
-        function showError(message) {
-            const errorElement = document.getElementById('errorMessage');
-            errorElement.textContent = message;
-            errorElement.style.display = 'block';
-            setTimeout(() => {
-                errorElement.style.display = 'none';
-            }, 5000);
-        }
-
-        // 设置加载状态
-        function setLoading(isLoading) {
-            const searchBtn = document.getElementById('searchBtn');
-            const searchInput = document.getElementById('searchInput');
-            
-            searchBtn.disabled = isLoading;
-            searchInput.disabled = isLoading;
-            
-            if (isLoading) {
-                searchBtn.innerHTML = '⏳';
-            } else {
-                searchBtn.innerHTML = '🔍';
-            }
-        }
-
-        // 带超时的fetch
-        async function fetchWithTimeout(url, options = {}) {
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), CONFIG.TIMEOUT);
-            
-            try {
-                const response = await fetch(url, {
-                    ...options,
-                    signal: controller.signal
-                });
-                clearTimeout(timeoutId);
-                return response;
-            } catch (error) {
-                clearTimeout(timeoutId);
-                throw error;
-            }
-        }
-
-        // 将merged_by_type格式转换为results格式
-        function convertMergedToResults(mergedByType) {
-            const results = [];
-            
-            for (const [cloudType, links] of Object.entries(mergedByType)) {
-                links.forEach((linkInfo, index) => {
-                    results.push({
-                        unique_id: `${cloudType}-${index}-${Date.now()}`,
-                        title: linkInfo.note || linkInfo.title || '未知资源',
-                        content: linkInfo.note || linkInfo.title || '',
-                        datetime: linkInfo.datetime || new Date().toISOString(),
-                        source: linkInfo.source || 'unknown',
-                        links: [{
-                            type: cloudType,
-                            url: linkInfo.url,
-                            password: linkInfo.password || ''
-                        }],
-                        images: linkInfo.images || [],
-                        tags: []
-                    });
-                });
-            }
-            
-            return results;
-        }
-
-        // 修复后的搜索功能 - 使用PanSou正确的API格式
-        async function performSearch(query = null, page = 1) {
-            const searchInput = document.getElementById('searchInput');
-            const keyword = query || searchInput.value.trim();
-            
-            if (!keyword) {
-                showError('请输入搜索关键词');
-                return;
-            }
-
-            currentKeyword = keyword;
-            currentPage = page;
-
-            const resultsSection = document.getElementById('resultsSection');
-            const resultsGrid = document.getElementById('resultsGrid');
-            
-            // 显示加载状态
-            setLoading(true);
-            resultsSection.style.display = 'block';
-            resultsGrid.innerHTML = `
-                <div class="loading">
-                    <div class="loading-spinner"></div>
-                    <p>正在搜索中，请稍候...</p>
-                    <p style="font-size: 0.9rem; color: #888; margin-top: 10px;">首次访问可能需要等待服务启动...</p>
-                </div>
-            `;
-
-            try {
-                // 使用PanSou正确的API参数：kw而不是keyword，添加res=results参数
-                const url = `${CONFIG.API_BASE}/search?kw=${encodeURIComponent(keyword)}&res=results&src=all&page=${page}`;
-                console.log('请求URL:', url);
-                
-                const response = await fetchWithTimeout(url);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                }
-
-                const data = await response.json();
-                console.log('API完整响应:', data);
-                
-                // 修复: 适配实际的API响应格式
-                let results = [];
-                let total = 0;
-                
-                // 检查成功状态 - 支持 code: 0 和 code: 200
-                const isSuccess = (data.code === 0 || data.code === 200) && data.message === 'success';
-                
-                if (isSuccess && data.data) {
-                    if (Array.isArray(data.data)) {
-                        // 直接是结果数组: {code: 0, data: [...]}
-                        results = data.data;
-                        total = data.total || data.data.length;
-                    } else if (data.data.results && Array.isArray(data.data.results)) {
-                        // 嵌套的results数组: {code: 0, data: {results: [...]}}
-                        results = data.data.results;
-                        total = data.data.total || data.data.results.length;
-                    } else if (data.data.merged_by_type) {
-                        // merged_by_type格式: {code: 0, data: {merged_by_type: {...}}}
-                        console.log('收到merged_by_type格式，正在转换...');
-                        results = convertMergedToResults(data.data.merged_by_type);
-                        total = results.length;
-                    }
-                } else if (data.results && Array.isArray(data.results)) {
-                    // 直接返回results数组
-                    results = data.results;
-                    total = data.total || data.results.length;
-                } else if (data.merged_by_type) {
-                    // 直接返回merged_by_type
-                    console.log('收到merged_by_type格式，正在转换...');
-                    results = convertMergedToResults(data.merged_by_type);
-                    total = results.length;
-                } else if (Array.isArray(data)) {
-                    // 直接数组格式
-                    results = data;
-                    total = data.length;
-                } else {
-                    console.error('无法解析API响应:', data);
-                    results = [];
-                    total = 0;
-                }
-                
-                console.log('解析出的结果数组:', results);
-                console.log('结果数量:', results.length);
-                
-                currentResults = results;
-                totalPages = Math.ceil(total / CONFIG.ITEMS_PER_PAGE);
-                
-                displayResults(results);
-                updateResultsCount(results.length, total);
-                updatePagination();
-                setLoading(false);
-                
-            } catch (error) {
-                console.error('搜索失败:', error);
-                setLoading(false);
-                
-                let errorMessage = '搜索失败';
-                let troubleshootingTips = '';
-                
-                if (error.name === 'AbortError') {
-                    errorMessage = '请求超时';
-                    troubleshootingTips = '服务可能正在启动，请稍等几分钟后重试';
-                } else if (error.message.includes('HTTP 404')) {
-                    errorMessage = 'API接口未找到';
-                    troubleshootingTips = '请确认后端服务已正确部署';
-                } else if (error.message.includes('HTTP 50')) {
-                    errorMessage = '服务器内部错误';
-                    troubleshootingTips = '后端服务可能出现问题';
-                } else if (error.message.includes('fetch')) {
-                    errorMessage = '网络连接失败';
-                    troubleshootingTips = '请检查网络连接或稍后重试';
-                }
-
-                showError(errorMessage + (troubleshootingTips ? ': ' + troubleshootingTips : ''));
-                resultsGrid.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">⚠️</div>
-                        <h3>搜索失败</h3>
-                        <p>${errorMessage}</p>
-                        ${troubleshootingTips ? `<p style="font-size: 0.9rem; color: #666; margin: 10px 0;">${troubleshootingTips}</p>` : ''}
-                        <button onclick="performSearch('${currentKeyword}', ${currentPage})" style="margin-top: 15px; padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer;">重试</button>
-                        <button onclick="testApiConnection()" style="margin-left: 10px; padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 6px; cursor: pointer;">测试连接</button>
-                    </div>
-                `;
-            }
-        }
-
-        // 测试API连接
-        async function testApiConnection() {
-            try {
-                console.log(`测试连接: ${CONFIG.API_BASE}`);
-                const response = await fetchWithTimeout(`${CONFIG.API_BASE}/health`);
-                if (response.ok) {
-                    const data = await response.json();
-                    console.log('健康检查响应:', data);
-                    showError(`✅ API连接正常 - 插件数量: ${data.plugin_count || 0}, 频道数量: ${data.channels_count || 0}`);
-                    return;
-                }
-            } catch (error) {
-                console.error('连接测试失败:', error);
-            }
-            
-            showError('❌ API连接失败，请检查服务状态');
-        }
-
         // 快速搜索
         function quickSearch(keyword) {
             document.getElementById('searchInput').value = keyword;
-            performSearch(keyword);
+            performSearch();
         }
 
-        // 优化的结果显示函数
-        function displayResults(results) {
-            const resultsGrid = document.getElementById('resultsGrid');
+        // 执行搜索
+        function performSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const keyword = searchInput.value.trim();
             
-            console.log('displayResults 接收到的数据:', results);
-            console.log('数据类型:', typeof results);
-            console.log('是否为数组:', Array.isArray(results));
-            
-            if (!Array.isArray(results)) {
-                console.error('结果不是数组格式');
-                resultsGrid.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">❌</div>
-                        <h3>数据格式错误</h3>
-                        <p>收到的搜索结果格式不正确</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            if (results.length === 0) {
-                resultsGrid.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">🔍</div>
-                        <h3>未找到相关资源</h3>
-                        <p>试试其他关键词或检查拼写</p>
-                    </div>
-                `;
+            if (!keyword) {
+                alert('请输入搜索关键词');
+                searchInput.focus();
                 return;
             }
 
-            // 过滤结果
-            const filteredResults = currentFilter === 'all' 
-                ? results 
-                : results.filter(item => {
-                    if (item.links && Array.isArray(item.links)) {
-                        return item.links.some(link => link.type === currentFilter);
-                    }
-                    const platform = item.platform || item.source || '';
-                    return getPlatformType(platform) === currentFilter;
-                });
+            // 显示加载状态
+            showLoading(true);
 
-            if (filteredResults.length === 0) {
-                resultsGrid.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">📁</div>
-                        <h3>该平台暂无资源</h3>
-                        <p>试试其他平台或关键词</p>
-                    </div>
-                `;
-                return;
-            }
-
-            // 渲染结果
-            const html = filteredResults.map(item => {
-                if (!item || typeof item !== 'object') {
-                    return '';
-                }
-                
-                const title = item.title || item.content || '未知资源';
-                const source = item.source || 'unknown';
-                const datetime = item.datetime ? new Date(item.datetime).toLocaleString('zh-CN') : '';
-                
-                // 处理链接信息
-                let linkHtml = '';
-                if (item.links && Array.isArray(item.links)) {
-                    linkHtml = item.links.map(link => {
-                        const password = link.password ? ` 提取码: ${link.password}` : '';
-                        const platform = getPlatformName(link.type);
-                        return `
-                            <a href="${link.url}" target="_blank" class="result-link" rel="noopener noreferrer">
-                                ${platform}${password} →
-                            </a>
-                        `;
-                    }).join('');
-                } else {
-                    // 兼容旧格式
-                    const url = item.url || item.link || item.download_url || '#';
-                    const platform = getPlatformName(item.platform || item.source || '');
-                    linkHtml = `
-                        <a href="${url}" target="_blank" class="result-link" rel="noopener noreferrer">
-                            ${platform} →
-                        </a>
-                    `;
-                }
-                
-                // 处理图片
-                let imageHtml = '';
-                if (item.images && Array.isArray(item.images) && item.images.length > 0) {
-                    imageHtml = `<img src="${item.images[0]}" alt="预览图" style="max-width: 100px; max-height: 60px; object-fit: cover; border-radius: 4px; margin-top: 8px;" onerror="this.style.display='none'">`;
-                }
-                
-                return `
-                    <div class="result-item">
-                        <div class="result-title">${escapeHtml(title)}</div>
-                        <div class="result-meta">
-                            <span class="source-tag">${source}</span>
-                            ${datetime ? `<span class="result-time">${datetime}</span>` : ''}
-                        </div>
-                        ${imageHtml}
-                        <div class="result-links">
-                            ${linkHtml}
-                        </div>
-                    </div>
-                `;
-            }).filter(html => html.trim() !== '').join('');
-
-            if (html) {
-                resultsGrid.innerHTML = html;
-            } else {
-                resultsGrid.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">📁</div>
-                        <h3>无有效结果</h3>
-                        <p>返回的数据中没有有效的资源信息</p>
-                    </div>
-                `;
-            }
+            // 将搜索关键词存储到URL参数中，跳转到结果页面
+            const searchUrl = `search-results.html?q=${encodeURIComponent(keyword)}`;
+            
+            // 模拟搜索延迟，实际项目中不需要
+            setTimeout(() => {
+                window.location.href = searchUrl;
+            }, 500);
         }
 
-        // 更新结果计数
-        function updateResultsCount(count, total = null) {
-            const text = total ? `找到 ${total} 个结果，显示第 ${currentPage} 页` : `找到 ${count} 个结果`;
-            document.getElementById('resultsCount').textContent = text;
+        // 显示/隐藏加载状态
+        function showLoading(show) {
+            const loading = document.getElementById('loading');
+            loading.style.display = show ? 'flex' : 'none';
         }
 
-        // 更新分页
-        function updatePagination() {
-            const pagination = document.getElementById('pagination');
-            
-            if (totalPages <= 1) {
-                pagination.innerHTML = '';
-                return;
+        // 回车搜索
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
             }
+        });
 
-            let html = '';
-            
-            // 上一页
-            html += `<button class="page-btn" ${currentPage <= 1 ? 'disabled' : ''} onclick="changePage(${currentPage - 1})">上一页</button>`;
-            
-            // 页码
-            const maxVisiblePages = 5;
-            let start = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-            let end = Math.min(totalPages, start + maxVisiblePages - 1);
-            
-            if (end - start < maxVisiblePages - 1) {
-                start = Math.max(1, end - maxVisiblePages + 1);
-            }
+        // 输入框焦点效果
+        document.getElementById('searchInput').addEventListener('focus', function() {
+            this.parentElement.style.transform = 'scale(1.02)';
+        });
 
-            for (let i = start; i <= end; i++) {
-                html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
-            }
-            
-            // 下一页
-            html += `<button class="page-btn" ${currentPage >= totalPages ? 'disabled' : ''} onclick="changePage(${currentPage + 1})">下一页</button>`;
-            
-            pagination.innerHTML = html;
-        }
+        document.getElementById('searchInput').addEventListener('blur', function() {
+            this.parentElement.style.transform = 'scale(1)';
+        });
 
-        // 切换页面
-        function changePage(page) {
-            if (page < 1 || page > totalPages || page === currentPage) return;
-            performSearch(currentKeyword, page);
-        }
+        // 输入验证
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            // 移除特殊字符，防止注入
+            this.value = this.value.replace(/[<>"']/g, '');
+        });
 
-        // 获取平台类型
-        function getPlatformType(platform) {
-            if (!platform) return 'other';
-            
-            const platformLower = platform.toLowerCase();
-            const platformMap = {
-                'baidu': ['baidu', 'baidupan', '百度'],
-                'aliyun': ['aliyun', 'alipan', '阿里', 'ali'],
-                'quark': ['quark', '夸克'],
-                'tianyi': ['tianyi', '天翼'],
-                '115': ['115'],
-                'pikpak': ['pikpak'],
-                'xunlei': ['xunlei', '迅雷'],
-                'uc': ['uc'],
-                'mobile': ['mobile', '移动'],
-                '123': ['123']
-            };
-            
-            for (const [type, keywords] of Object.entries(platformMap)) {
-                if (keywords.some(keyword => platformLower.includes(keyword))) {
-                    return type;
-                }
-            }
-            
-            return 'other';
-        }
-
-        // 获取平台名称
-        function getPlatformName(platform) {
-            const names = {
-                'baidu': '百度网盘',
-                'aliyun': '阿里云盘', 
-                'quark': '夸克网盘',
-                'tianyi': '天翼云盘',
-                'uc': 'UC网盘',
-                'mobile': '移动云盘',
-                '115': '115网盘',
-                'pikpak': 'PikPak',
-                'xunlei': '迅雷网盘',
-                '123': '123网盘',
-                'magnet': '磁力链接',
-                'ed2k': '电驴链接',
-                'others': '其他'
-            };
-            
-            const type = getPlatformType(platform);
-            return names[type] || platform || '未知平台';
-        }
-
-        // 格式化文件大小
-        function formatSize(size) {
-            if (!size) return '未知大小';
-            
-            if (typeof size === 'string') {
-                // 如果已经是格式化的字符串，直接返回
-                if (/\d+(\.\d+)?\s*(B|KB|MB|GB|TB)/i.test(size)) {
-                    return size;
-                }
-                // 尝试解析数字
-                const parsed = parseFloat(size);
-                if (isNaN(parsed)) return size;
-                size = parsed;
-            }
-            
-            const units = ['B', 'KB', 'MB', 'GB', 'TB'];
-            let index = 0;
-            let fileSize = Number(size);
-            
-            while (fileSize >= 1024 && index < units.length - 1) {
-                fileSize /= 1024;
-                index++;
-            }
-            
-            return `${fileSize.toFixed(1)} ${units[index]}`;
-        }
-
-        // HTML转义
-        function escapeHtml(text) {
-            if (!text) return '';
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
-        // 页面初始化
+        // 页面加载完成后的初始化
         document.addEventListener('DOMContentLoaded', function() {
-            const platformBtns = document.querySelectorAll('.platform-btn');
-            
-            // 平台过滤器
-            platformBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    platformBtns.forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    currentFilter = this.dataset.platform;
-                    displayResults(currentResults);
-                });
-            });
+            // 获取URL参数中的搜索关键词（如果有的话）
+            const urlParams = new URLSearchParams(window.location.search);
+            const keyword = urlParams.get('q');
+            if (keyword) {
+                document.getElementById('searchInput').value = decodeURIComponent(keyword);
+                document.getElementById('searchInput').focus();
+            }
 
-            // 回车搜索
-            document.getElementById('searchInput').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    performSearch();
-                }
-            });
-
-            // 输入框自动清理
-            document.getElementById('searchInput').addEventListener('input', function(e) {
-                // 移除特殊字符，防止注入
-                this.value = this.value.replace(/[<>\"']/g, '');
-            });
-        });
-
-        // 全局错误处理
-        window.addEventListener('error', function(e) {
-            console.error('页面错误:', e.error);
-        });
-
-        window.addEventListener('unhandledrejection', function(e) {
-            console.error('未处理的Promise错误:', e.reason);
+            // 随机选择一个标签作为示例
+            const tags = document.querySelectorAll('.tag');
+            if (tags.length > 0) {
+                const randomTag = tags[Math.floor(Math.random() * tags.length)];
+                randomTag.style.background = '#e8f4fd';
+                randomTag.style.borderColor = '#1a73e8';
+                randomTag.style.color = '#1a73e8';
+            }
         });
     </script>
 </body>
