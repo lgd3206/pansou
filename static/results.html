@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q5QY3KE9LT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-Q5QY3KE9LT');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>搜索结果 - 资源搜</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            line-height: 1.6;
+        }
+
+        /* 头部搜索栏 */
+        .header {
+            background: white;
+            border-bottom: 1px solid #dadce0;
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #4285f4, #34a853);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1a73e8;
+        }
+
+        .search-container {
+            flex: 1;
+            max-width: 584px;
+            position: relative;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 10px 40px 10px 16px;
+            border: 1px solid #dadce0;
+            border-radius: 24px;
+            font-size: 16px;
+            outline: none;
+            transition: box-shadow 0.2s;
+        }
+
+        .search-box:focus {
+            box-shadow: 0 2px 5px 1px rgba(64,60,67,.16);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5f6368;
+        }
+
+        .search-btn:hover {
+            background: #f1f3f4;
+        }
+
+        /* 主内容区域 */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        /* 结果统计和过滤器 */
+        .results-header {
+            background: white;
+            border-radius: 8px;
+            padding: 16px 20px;
+            border: 1px solid #dadce0;
+        }
+
+        .results-stats {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .results-count {
+            color: #5f6368;
+            font-size: 14px;
+        }
+
+        .results-count .highlight {
+            color: #d93025;
+            font-weight: 600;
+        }
+
+        .time-filters {
+            display: flex;
+            gap: 8px;
+        }
+
+        .time-filter {
+            padding: 6px 12px;
+            border: 1px solid #dadce0;
+            background: white;
+            color: #3c4043;
+            border-radius: 16px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+
+        .time-filter.active {
+            background: #1a73e8;
+            color: white;
+            border-color: #1a73e8;
+        }
+
+        .time-filter:hover:not(.active) {
+            background: #f1f3f4;
+        }
+
+        /* 搜索结果列表 */
+        .results-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .result-item {
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #dadce0;
+            overflow: hidden;
+            transition: box-shadow 0.2s;
+        }
+
+        .result-item:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .result-header {
+            padding: 16px 20px 12px;
+            border-bottom: 1px solid #f1f3f4;
+        }
+
+        .result-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: #1a73e8;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .result-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 13px;
+            color: #5f6368;
+        }
+
+        .result-content {
+            padding: 0 20px 16px;
+        }
+
+        .file-list {
+            list-style: none;
+            margin: 8px 0;
+        }
+
+        .file-item {
+            padding: 4px 0;
+            font-size: 14px;
+            color: #3c4043;
+            border-left: 2px solid transparent;
+            padding-left: 8px;
+        }
+
+        .file-item:hover {
+            border-left-color: #1a73e8;
+            background: #f8f9ff;
+        }
+
+        .file-size {
+            color: #5f6368;
+            font-size: 12px;
+            margin-left: 8px;
+        }
+
+        .result-footer {
+            padding: 12px 20px;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .file-size-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #5f6368;
+        }
+
+        .size-badge {
+            background: #e8f0fe;
+            color: #1967d2;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+
+        .download-links {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .download-link {
+            background: #1a73e8;
+            color: white;
+            padding: 6px 16px;
+            border-radius: 16px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .download-link:hover {
+            background: #1557b0;
+        }
+
+        .download-link.baidu {
+            background: #2932e1;
+        }
+
+        .download-link.aliyun {
+            background: #ff6a00;
+        }
+
+        .download-link.quark {
+            background: #00c4cc;
+        }
+
+        /* 分页 */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 32px;
+            padding: 20px 0;
+        }
+
+        .page-btn {
+            padding: 8px 12px;
+            border: 1px solid #dadce0;
+            background: white;
+            color: #3c4043;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .page-btn:hover {
+            background: #f1f3f4;
+        }
+
+        .page-btn.active {
+            background: #1a73e8;
+            color: white;
+            border-color: #1a73e8;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* 加载状态 */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            border: 3px solid #f1f3f4;
+            border-top: 3px solid #1a73e8;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 16px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* 空状态 */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #dadce0;
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            color: #dadce0;
+            margin-bottom: 16px;
+        }
+
+        .empty-title {
+            font-size: 18px;
+            color: #3c4043;
+            margin-bottom: 8px;
+        }
+
+        .empty-desc {
+            color: #5f6368;
+            font-size: 14px;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 12px;
+                padding: 12px 16px;
+            }
+
+            .search-container {
+                order: -1;
+            }
+
+            .main-container {
+                padding: 16px;
+            }
+
+            .results-stats {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .time-filters {
+                justify-content: center;
+            }
+
+            .result-header {
+                padding: 12px 16px 8px;
+            }
+
+            .result-content {
+                padding: 0 16px 12px;
+            }
+
+            .result-footer {
+                padding: 8px 16px;
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .download-links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部搜索栏 -->
+    <div class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">盘</div>
+                <div class="logo-text">资源搜</div>
+            </a>
+            <div class="search-container">
+                <input type="text" class="search-box" placeholder="考研、小说、英语、课程、资料" id="searchInput">
+                <button class="search-btn" onclick="performSearch()" id="searchBtn">🔍</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主内容区域 -->
+    <div class="main-container">
+        <!-- 结果统计和过滤器 -->
+        <div class="results-header">
+            <div class="results-stats">
+                <div class="results-count" id="resultsCount">
+                    为您找到相关结果约 <span class="highlight">0</span> 条
+                </div>
+                <div class="time-filters">
+                    <span>时间:</span>
+                    <button class="time-filter active" data-time="all">全部</button>
+                    <button class="time-filter" data-time="month">最近一月</button>
+                    <button class="time-filter" data-time="halfyear">最近半年</button>
+                    <button class="time-filter" data-time="year">最近一年</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 搜索结果列表 -->
+        <div class="results-list" id="resultsList">
+            <div class="loading" id="loadingState">
+                <div class="loading-spinner"></div>
+                <p>正在搜索中，请稍候...</p>
+                <p style="font-size: 13px; color: #888; margin-top: 8px;">首次访问可能需要等待服务启动...</p>
+            </div>
+        </div>
+
+        <!-- 分页 -->
+        <div class="pagination" id="pagination"></div>
+    </div>
+
+    <script>
+        // 配置
+        const CONFIG = {
+            API_BASE: '/api',
+            ITEMS_PER_PAGE: 20,
+            MAX_RETRY: 3,
+            TIMEOUT: 45000
+        };
+        
+        let currentResults = [];
+        let currentPage = 1;
+        let totalPages = 1;
+        let currentKeyword = '';
+        let currentTimeFilter = 'all';
+
+        // 获取URL参数
+        function getUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                keyword: params.get('kw') || '',
+                page: parseInt(params.get('page')) || 1
+            };
+        }
+
+        // 更新URL
+        function updateUrl(keyword, page) {
+            const params = new URLSearchParams();
+            params.set('kw', keyword);
+            params.set('page', page);
+            const newUrl = `${window.location.pathname}?${params.toString()}`;
+            window.history.pushState({}, '', newUrl);
+        }
+
+        // 带超时的fetch
+        async function fetchWithTimeout(url, options = {}) {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), CONFIG.TIMEOUT);
+            
+            try {
+                const response = await fetch(url, {
+                    ...options,
+                    signal: controller.signal
+                });
+                clearTimeout(timeoutId);
+                return response;
+            } catch (error) {
+                clearTimeout(timeoutId);
+                throw error;
+            }
+        }
+
+        // 执行搜索
+        async function performSearch(query = null, page = 1) {
+            const searchInput = document.getElementById('searchInput');
+            const keyword = query || searchInput.value.trim();
+            
+            if (!keyword) {
+                showError('请输入搜索关键词');
+                return;
+            }
+
+            currentKeyword = keyword;
+            currentPage = page;
+
+            // 更新URL
+            updateUrl(keyword, page);
+
+            // 显示加载状态
+            showLoading(true);
+
+            try {
+                const url = `${CONFIG.API_BASE}/search?kw=${encodeURIComponent(keyword)}&res=results&src=all&page=${page}`;
+                console.log('请求URL:', url);
+                
+                const response = await fetchWithTimeout(url);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                console.log('API完整响应:', data);
+                
+                // 解析结果
+                let results = [];
+                let total = 0;
+                
+                const isSuccess = (data.code === 0 || data.code === 200) && data.message === 'success';
+                
+                if (isSuccess && data.data) {
+                    if (Array.isArray(data.data)) {
+                        results = data.data;
+                        total = data.total || data.data.length;
+                    } else if (data.data.results && Array.isArray(data.data.results)) {
+                        results = data.data.results;
+                        total = data.data.total || data.data.results.length;
+                    } else if (data.data.merged_by_type) {
+                        results = convertMergedToResults(data.data.merged_by_type);
+                        total = results.length;
+                    }
+                } else if (data.results && Array.isArray(data.results)) {
+                    results = data.results;
+                    total = data.total || data.results.length;
+                } else if (data.merged_by_type) {
+                    results = convertMergedToResults(data.merged_by_type);
+                    total = results.length;
+                } else if (Array.isArray(data)) {
+                    results = data;
+                    total = data.length;
+                }
+                
+                currentResults = results;
+                totalPages = Math.ceil(total / CONFIG.ITEMS_PER_PAGE);
+                
+                showLoading(false);
+                displayResults(results);
+                updateResultsCount(results.length, total);
+                updatePagination();
+                
+            } catch (error) {
+                console.error('搜索失败:', error);
+                showLoading(false);
+                showError(error);
+            }
+        }
+
+        // 将merged_by_type格式转换为results格式
+        function convertMergedToResults(mergedByType) {
+            const results = [];
+            
+            for (const [cloudType, links] of Object.entries(mergedByType)) {
+                links.forEach((linkInfo, index) => {
+                    results.push({
+                        unique_id: `${cloudType}-${index}-${Date.now()}`,
+                        title: linkInfo.note || linkInfo.title || '未知资源',
+                        content: linkInfo.note || linkInfo.title || '',
+                        datetime: linkInfo.datetime || new Date().toISOString(),
+                        source: linkInfo.source || 'unknown',
+                        links: [{
+                            type: cloudType,
+                            url: linkInfo.url,
+                            password: linkInfo.password || ''
+                        }],
+                        images: linkInfo.images || [],
+                        tags: []
+                    });
+                });
+            }
+            
+            return results;
+        }
+
+        // 显示加载状态
+        function showLoading(isLoading) {
+            const loadingState = document.getElementById('loadingState');
+            const resultsList = document.getElementById('resultsList');
+            
+            if (isLoading) {
+                resultsList.innerHTML = `
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        <p>正在搜索中，请稍候...</p>
+                        <p style="font-size: 13px; color: #888; margin-top: 8px;">首次访问可能需要等待服务启动...</p>
+                    </div>
+                `;
+            }
+        }
+
+        // 显示错误
+        function showError(error) {
+            const resultsList = document.getElementById('resultsList');
+            let errorMessage = '搜索失败';
+            
+            if (error.name === 'AbortError') {
+                errorMessage = '请求超时，服务可能正在启动，请稍后重试';
+            } else if (error.message.includes('HTTP 404')) {
+                errorMessage = 'API接口未找到，请确认后端服务已正确部署';
+            } else if (error.message.includes('HTTP 50')) {
+                errorMessage = '服务器内部错误，后端服务可能出现问题';
+            } else if (error.message.includes('fetch')) {
+                errorMessage = '网络连接失败，请检查网络连接或稍后重试';
+            }
+
+            resultsList.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-icon">⚠️</div>
+                    <div class="empty-title">搜索失败</div>
+                    <div class="empty-desc">${errorMessage}</div>
+                    <button onclick="performSearch('${currentKeyword}', ${currentPage})" style="margin-top: 16px; padding: 8px 16px; background: #1a73e8; color: white; border: none; border-radius: 4px; cursor: pointer;">重试</button>
+                </div>
+            `;
+        }
+
+        // 显示搜索结果
+        function displayResults(results) {
+            const resultsList = document.getElementById('resultsList');
+            
+            if (!Array.isArray(results) || results.length === 0) {
+                resultsList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">🔍</div>
+                        <div class="empty-title">未找到相关资源</div>
+                        <div class="empty-desc">试试其他关键词或检查拼写</div>
+                    </div>
+                `;
+                return;
+            }
+
+            const html = results.map(item => {
+                const title = item.title || item.content || '未知资源';
+                const source = item.source || 'unknown';
+                const datetime = item.datetime ? new Date(item.datetime).toLocaleDateString('zh-CN') : '';
+                
+                // 处理文件列表
+                let fileListHtml = '';
+                if (item.content && item.content.includes('|-')) {
+                    const lines = item.content.split('\n');
+                    const files = lines.filter(line => line.includes('|-')).slice(0, 8);
+                    if (files.length > 0) {
+                        fileListHtml = `
+                            <ul class="file-list">
+                                ${files.map(file => {
+                                    const cleanFile = file.replace('|-', '').trim();
+                                    const sizeMatch = cleanFile.match(/(\d+(?:\.\d+)?\s*[KMGT]?B)$/i);
+                                    const fileName = sizeMatch ? cleanFile.replace(sizeMatch[0], '').trim() : cleanFile;
+                                    const fileSize = sizeMatch ? sizeMatch[0] : '';
+                                    return `<li class="file-item">${escapeHtml(fileName)}${fileSize ? `<span class="file-size">${fileSize}</span>` : ''}</li>`;
+                                }).join('')}
+                                ${lines.filter(line => line.includes('|-')).length > 8 ? '<li class="file-item" style="color: #5f6368;">...</li>' : ''}
+                            </ul>
+                        `;
+                    }
+                }
+                
+                // 处理链接
+                let linkHtml = '';
+                if (item.links && Array.isArray(item.links)) {
+                    linkHtml = item.links.map(link => {
+                        const password = link.password ? ` 提取码: ${link.password}` : '';
+                        const platform = getPlatformName(link.type);
+                        const platformClass = getPlatformClass(link.type);
+                        return `
+                            <a href="${link.url}" target="_blank" class="download-link ${platformClass}" rel="noopener noreferrer">
+                                ${platform}${password}
+                            </a>
+                        `;
+                    }).join('');
+                }
+                
+                // 文件大小信息
+                const sizeMatch = item.content && item.content.match(/文件大小[：:]\s*(\d+(?:\.\d+)?\s*[KMGT]?B)/i);
+                const fileSize = sizeMatch ? sizeMatch[1] : '';
+                
+                return `
+                    <div class="result-item">
+                        <div class="result-header">
+                            <div class="result-title">${escapeHtml(title)}</div>
+                            <div class="result-meta">
+                                <span>来源: ${source}</span>
+                                ${datetime ? `<span>${datetime}</span>` : ''}
+                            </div>
+                        </div>
+                        ${fileListHtml ? `<div class="result-content">${fileListHtml}</div>` : ''}
+                        <div class="result-footer">
+                            <div class="file-size-info">
+                                ${fileSize ? `<span class="size-badge">${fileSize}</span>` : ''}
+                            </div>
+                            <div class="download-links">
+                                ${linkHtml}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            resultsList.innerHTML = html;
+        }
+
+        // 更新结果计数
+        function updateResultsCount(count, total = null) {
+            const resultsCount = document.getElementById('resultsCount');
+            const displayTotal = total || count;
+            resultsCount.innerHTML = `为您找到相关结果约 <span class="highlight">${displayTotal}</span> 条`;
+        }
+
+        // 更新分页
+        function updatePagination() {
+            const pagination = document.getElementById('pagination');
+            
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+
+            let html = '';
+            
+            // 上一页
+            html += `<button class="page-btn" ${currentPage <= 1 ? 'disabled' : ''} onclick="changePage(${currentPage - 1})">上一页</button>`;
+            
+            // 页码
+            const maxVisiblePages = 5;
+            let start = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+            let end = Math.min(totalPages, start + maxVisiblePages - 1);
+            
+            if (end - start < maxVisiblePages - 1) {
+                start = Math.max(1, end - maxVisiblePages + 1);
+            }
+
+            for (let i = start; i <= end; i++) {
+                html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
+            }
+            
+            // 下一页
+            html += `<button class="page-btn" ${currentPage >= totalPages ? 'disabled' : ''} onclick="changePage(${currentPage + 1})">下一页</button>`;
+            
+            pagination.innerHTML = html;
+        }
+
+        // 切换页面
+        function changePage(page) {
+            if (page < 1 || page > totalPages || page === currentPage) return;
+            performSearch(currentKeyword, page);
+        }
+
+        // 获取平台名称
+        function getPlatformName(platform) {
+            const names = {
+                'baidu': '百度网盘',
+                'aliyun': '阿里云盘', 
+                'quark': '夸克网盘',
+                'tianyi': '天翼云盘',
+                'uc': 'UC网盘',
+                'mobile': '移动云盘',
+                '115': '115网盘',
+                'pikpak': 'PikPak',
+                'xunlei': '迅雷网盘',
+                '123': '123网盘'
+            };
+            
+            return names[platform] || platform || '未知平台';
+        }
+
+        // 获取平台样式类
+        function getPlatformClass(platform) {
+            const classes = {
+                'baidu': 'baidu',
+                'aliyun': 'aliyun',
+                'quark': 'quark'
+            };
+            
+            return classes[platform] || '';
+        }
+
+        // HTML转义
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // 页面初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = getUrlParams();
+            
+            // 设置搜索框值
+            if (urlParams.keyword) {
+                document.getElementById('searchInput').value = urlParams.keyword;
+                performSearch(urlParams.keyword, urlParams.page);
+            } else {
+                // 如果没有搜索关键词，跳转到首页
+                window.location.href = 'index.html';
+            }
+
+            // 搜索框事件
+            document.getElementById('searchInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+
+            // 时间过滤器
+            document.querySelectorAll('.time-filter').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.time-filter').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentTimeFilter = this.dataset.time;
+                    // TODO: 根据时间过滤结果
+                });
+            });
+        });
+    </script>
+</body>
+</html>
