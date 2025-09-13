@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head><!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q5QY3KE9LT"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-Q5QY3KE9LT');
-</script>
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q5QY3KE9LT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-Q5QY3KE9LT');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>资源搜 - 全网盘资源搜索引擎</title>
@@ -20,52 +20,61 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            overflow-x: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #fff;
+            color: #333;
+            line-height: 1.6;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px;
         }
 
-        /* 头部 */
+        /* 头部区域 */
         .header {
+            padding: 40px 0 30px;
             text-align: center;
-            margin-bottom: 60px;
-            padding-top: 60px;
+        }
+
+        /* Logo设计 - 完全仿照学霸盘 */
+        .logo-container {
+            margin-bottom: 40px;
         }
 
         .logo {
-            font-size: 3.5rem;
-            font-weight: bold;
-            color: white;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            margin-bottom: 20px;
-            background: linear-gradient(45deg, #ff9a9e, #fecfef, #fecfef);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: inherit;
         }
 
-        .subtitle {
-            font-size: 1.2rem;
-            color: rgba(255,255,255,0.9);
-            margin-bottom: 40px;
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: #4a90e2;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: 500;
+            color: #4a90e2;
+            margin-left: 5px;
         }
 
         /* 搜索区域 */
         .search-section {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(20px);
-            border-radius: 25px;
-            padding: 40px;
-            margin-bottom: 40px;
-            border: 1px solid rgba(255,255,255,0.2);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 0 auto 40px;
         }
 
         .search-container {
@@ -75,206 +84,265 @@
 
         .search-input {
             width: 100%;
-            padding: 20px 60px 20px 25px;
-            font-size: 1.1rem;
-            border: none;
-            border-radius: 50px;
-            background: rgba(255,255,255,0.9);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            height: 50px;
+            padding: 0 60px 0 20px;
+            font-size: 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
             outline: none;
-            transition: all 0.3s ease;
+            transition: border-color 0.3s ease;
+            background: #fff;
         }
 
         .search-input:focus {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            border-color: #4a90e2;
+        }
+
+        .search-input::placeholder {
+            color: #999;
         }
 
         .search-btn {
             position: absolute;
-            right: 8px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            right: 5px;
+            top: 5px;
+            width: 40px;
+            height: 40px;
+            background: #4a90e2;
             border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
+            border-radius: 20px;
             color: white;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: background-color 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 16px;
         }
 
         .search-btn:hover {
-            transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            background: #357abd;
         }
 
         .search-btn:disabled {
             opacity: 0.6;
             cursor: not-allowed;
-            transform: translateY(-50%);
         }
 
-        /* 快速标签 */
-        .quick-tags {
+        /* 分类标签区域 - 仿照学霸盘密集布局 */
+        .categories-section {
+            margin-bottom: 40px;
+        }
+
+        .category-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
             justify-content: center;
+            gap: 12px;
+            margin-bottom: 12px;
         }
 
-        .tag {
-            background: rgba(255,255,255,0.2);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 25px;
+        .category-item {
+            background: #f8f9fa;
+            color: #666;
+            padding: 6px 15px;
+            border-radius: 15px;
             cursor: pointer;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.3);
+            font-size: 14px;
+            border: 1px solid #e0e0e0;
+            white-space: nowrap;
         }
 
-        .tag:hover {
-            background: rgba(255,255,255,0.3);
-            transform: translateY(-2px);
+        .category-item:hover {
+            background: #4a90e2;
+            color: white;
+            border-color: #4a90e2;
+        }
+
+        /* 错误提示 */
+        .error-message {
+            background: #ffe6e6;
+            color: #d32f2f;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #ffcdd2;
+            display: none;
+            text-align: center;
         }
 
         /* 结果区域 */
         .results-section {
-            background: rgba(255,255,255,0.95);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
+            background: #fff;
             display: none;
         }
 
         .results-header {
+            padding: 15px 0;
+            border-bottom: 1px solid #f0f0f0;
+            margin-bottom: 20px;
+        }
+
+        .results-info {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 25px;
             flex-wrap: wrap;
             gap: 15px;
         }
 
         .results-count {
-            font-size: 1.1rem;
+            font-size: 14px;
             color: #666;
+        }
+
+        .time-filter {
+            display: flex;
+            gap: 8px;
+        }
+
+        .time-btn {
+            padding: 4px 12px;
+            border: 1px solid #e0e0e0;
+            background: white;
+            color: #666;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 12px;
+        }
+
+        .time-btn.active,
+        .time-btn:hover {
+            background: #4a90e2;
+            border-color: #4a90e2;
+            color: white;
         }
 
         .platform-filter {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
+            margin-top: 10px;
         }
 
         .platform-btn {
-            padding: 8px 16px;
-            border: 2px solid #667eea;
+            padding: 4px 12px;
+            border: 1px solid #e0e0e0;
             background: white;
-            color: #667eea;
-            border-radius: 20px;
+            color: #666;
+            border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 0.9rem;
+            font-size: 12px;
         }
 
         .platform-btn.active,
         .platform-btn:hover {
-            background: #667eea;
+            background: #4a90e2;
+            border-color: #4a90e2;
             color: white;
         }
 
+        /* 搜索结果列表 - 仿照学霸盘样式 */
         .results-grid {
             display: grid;
-            gap: 20px;
+            gap: 1px;
+            background: #f0f0f0;
         }
 
         .result-item {
             background: white;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-            border: 1px solid #f0f0f0;
-            transition: all 0.3s ease;
+            padding: 15px 20px;
+            transition: background-color 0.3s ease;
+            border-left: 3px solid transparent;
         }
 
         .result-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            background: #f8f9fa;
+            border-left-color: #4a90e2;
+        }
+
+        .result-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 8px;
+        }
+
+        .result-icon {
+            width: 40px;
+            height: 40px;
+            background: #ffd700;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .result-content {
+            flex: 1;
+            min-width: 0;
         }
 
         .result-title {
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: 16px;
+            font-weight: 500;
             color: #333;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             line-height: 1.4;
+            cursor: pointer;
         }
 
-        .result-meta {
+        .result-title:hover {
+            color: #4a90e2;
+        }
+
+        .result-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .result-detail {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .platform-tag {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        .source-tag {
-            background: #28a745;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        .result-time {
-            color: #888;
-            font-size: 0.8rem;
+            gap: 4px;
         }
 
         .result-size {
-            color: #888;
-            font-size: 0.9rem;
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-weight: 500;
         }
 
         .result-links {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
+            margin-top: 8px;
         }
 
         .result-link {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: #4a90e2;
             color: white;
-            padding: 10px 20px;
-            border-radius: 20px;
+            padding: 4px 12px;
+            border-radius: 12px;
             text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            font-size: 0.9rem;
+            font-size: 12px;
+            transition: background-color 0.3s ease;
         }
 
         .result-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+            background: #357abd;
         }
 
         /* 加载状态 */
@@ -286,10 +354,10 @@
 
         .loading-spinner {
             display: inline-block;
-            width: 40px;
-            height: 40px;
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #667eea;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #4a90e2;
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin-bottom: 15px;
@@ -304,23 +372,13 @@
         .empty-state {
             text-align: center;
             padding: 60px 20px;
-            color: #888;
+            color: #666;
         }
 
         .empty-icon {
-            font-size: 4rem;
+            font-size: 48px;
             margin-bottom: 20px;
             color: #ddd;
-        }
-
-        /* 错误提示 */
-        .error-message {
-            background: #ff6b6b;
-            color: white;
-            padding: 12px 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: none;
         }
 
         /* 分页 */
@@ -328,23 +386,25 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10px;
-            margin-top: 30px;
+            gap: 5px;
+            margin: 30px 0;
         }
 
         .page-btn {
-            padding: 8px 12px;
-            border: 1px solid #667eea;
+            padding: 6px 12px;
+            border: 1px solid #e0e0e0;
             background: white;
-            color: #667eea;
-            border-radius: 6px;
+            color: #666;
+            border-radius: 4px;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-size: 14px;
         }
 
         .page-btn:hover,
         .page-btn.active {
-            background: #667eea;
+            background: #4a90e2;
+            border-color: #4a90e2;
             color: white;
         }
 
@@ -353,131 +413,197 @@
             cursor: not-allowed;
         }
 
+        /* 页脚 */
+        .footer {
+            background: #f8f9fa;
+            border-top: 1px solid #e0e0e0;
+            padding: 20px 0;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            margin-top: 40px;
+        }
+
+        .footer-links {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .footer-links a:hover {
+            color: #4a90e2;
+        }
+
         /* 响应式设计 */
         @media (max-width: 768px) {
             .container {
-                padding: 15px;
+                padding: 0 15px;
             }
 
-            .logo {
-                font-size: 2.5rem;
+            .header {
+                padding: 20px 0;
             }
 
-            .search-section {
-                padding: 25px 20px;
+            .logo-text {
+                font-size: 24px;
             }
 
             .search-input {
-                padding: 15px 50px 15px 20px;
-                font-size: 1rem;
+                height: 45px;
+                padding: 0 55px 0 15px;
+                font-size: 16px;
             }
 
             .search-btn {
-                width: 40px;
-                height: 40px;
-                right: 6px;
+                width: 36px;
+                height: 36px;
+                right: 4px;
+                top: 4px;
             }
 
-            .quick-tags {
-                gap: 8px;
+            .category-item {
+                padding: 5px 12px;
+                font-size: 13px;
             }
 
-            .tag {
-                padding: 8px 15px;
-                font-size: 0.9rem;
+            .result-item {
+                padding: 12px 15px;
             }
 
-            .results-header {
+            .result-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .result-icon {
+                align-self: flex-start;
+            }
+
+            .results-info {
                 flex-direction: column;
                 align-items: stretch;
             }
 
+            .time-filter,
             .platform-filter {
                 justify-content: center;
             }
         }
 
-        /* 特殊效果 */
-        .floating-shapes {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
+        @media (max-width: 480px) {
+            .category-row {
+                gap: 8px;
+                margin-bottom: 8px;
+            }
 
-        .shape {
-            position: absolute;
-            opacity: 0.1;
-            animation: float 6s ease-in-out infinite;
-        }
+            .category-item {
+                padding: 4px 10px;
+                font-size: 12px;
+            }
 
-        .shape:nth-child(1) {
-            top: 20%;
-            left: 10%;
-            animation-delay: 0s;
-        }
-
-        .shape:nth-child(2) {
-            top: 60%;
-            right: 10%;
-            animation-delay: 2s;
-        }
-
-        .shape:nth-child(3) {
-            bottom: 20%;
-            left: 20%;
-            animation-delay: 4s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
+            .result-details {
+                flex-direction: column;
+                gap: 5px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- 背景装饰 -->
-    <div class="floating-shapes">
-        <div class="shape" style="width: 80px; height: 80px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
-        <div class="shape" style="width: 120px; height: 120px; background: rgba(255,255,255,0.05); border-radius: 30%;"></div>
-        <div class="shape" style="width: 60px; height: 60px; background: rgba(255,255,255,0.08); border-radius: 50%;"></div>
-    </div>
-
     <div class="container">
         <!-- 头部 -->
         <div class="header">
-            <h1 class="logo">资源搜</h1>
-            <p class="subtitle">全网盘资源搜索引擎 - 找你想要的一切资源</p>
-        </div>
-
-        <!-- 搜索区域 -->
-        <div class="search-section">
-            <div class="error-message" id="errorMessage"></div>
-            
-            <div class="search-container">
-                <input type="text" class="search-input" placeholder="输入关键词搜索网盘资源..." id="searchInput">
-                <button class="search-btn" onclick="performSearch()" id="searchBtn">🔍</button>
+            <div class="logo-container">
+                <a href="/" class="logo">
+                    <div class="logo-icon">资</div>
+                    <h1 class="logo-text">资源搜</h1>
+                </a>
             </div>
-            
-            <div class="quick-tags">
-                <span class="tag" onclick="quickSearch('电影')">热门电影</span>
-                <span class="tag" onclick="quickSearch('电视剧')">电视剧</span>
-                <span class="tag" onclick="quickSearch('音乐')">音乐</span>
-                <span class="tag" onclick="quickSearch('软件')">软件</span>
-                <span class="tag" onclick="quickSearch('教程')">教程</span>
-                <span class="tag" onclick="quickSearch('游戏')">游戏</span>
-                <span class="tag" onclick="quickSearch('小说')">小说</span>
-                <span class="tag" onclick="quickSearch('纪录片')">纪录片</span>
+
+            <!-- 搜索区域 -->
+            <div class="search-section">
+                <div class="error-message" id="errorMessage"></div>
+                
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="考研、小说、英语、课程、资料" id="searchInput" autocomplete="off">
+                    <button class="search-btn" onclick="performSearch()" id="searchBtn">🔍</button>
+                </div>
+            </div>
+
+            <!-- 分类标签区域 -->
+            <div class="categories-section">
+                <div class="category-row">
+                    <span class="category-item" onclick="quickSearch('抖音课程')">抖音课程</span>
+                    <span class="category-item" onclick="quickSearch('短视频')">短视频</span>
+                    <span class="category-item" onclick="quickSearch('赚钱')">赚钱</span>
+                    <span class="category-item" onclick="quickSearch('项目')">项目</span>
+                    <span class="category-item" onclick="quickSearch('暴利')">暴利</span>
+                    <span class="category-item" onclick="quickSearch('小学')">小学</span>
+                    <span class="category-item" onclick="quickSearch('初中')">初中</span>
+                    <span class="category-item" onclick="quickSearch('高中')">高中</span>
+                    <span class="category-item" onclick="quickSearch('大学')">大学</span>
+                    <span class="category-item" onclick="quickSearch('作文')">作文</span>
+                    <span class="category-item" onclick="quickSearch('数学')">数学</span>
+                    <span class="category-item" onclick="quickSearch('语文')">语文</span>
+                </div>
+                <div class="category-row">
+                    <span class="category-item" onclick="quickSearch('英语')">英语</span>
+                    <span class="category-item" onclick="quickSearch('化学')">化学</span>
+                    <span class="category-item" onclick="quickSearch('历史')">历史</span>
+                    <span class="category-item" onclick="quickSearch('政治')">政治</span>
+                    <span class="category-item" onclick="quickSearch('学而思')">学而思</span>
+                    <span class="category-item" onclick="quickSearch('考研')">考研</span>
+                    <span class="category-item" onclick="quickSearch('课程')">课程</span>
+                    <span class="category-item" onclick="quickSearch('考试')">考试</span>
+                    <span class="category-item" onclick="quickSearch('资料')">资料</span>
+                    <span class="category-item" onclick="quickSearch('会计')">会计</span>
+                    <span class="category-item" onclick="quickSearch('老师')">老师</span>
+                    <span class="category-item" onclick="quickSearch('教程')">教程</span>
+                </div>
+                <div class="category-row">
+                    <span class="category-item" onclick="quickSearch('漫画')">漫画</span>
+                    <span class="category-item" onclick="quickSearch('动画片')">动画片</span>
+                    <span class="category-item" onclick="quickSearch('电子书')">电子书</span>
+                    <span class="category-item" onclick="quickSearch('小说全集')">小说全集</span>
+                    <span class="category-item" onclick="quickSearch('单机游戏')">单机游戏</span>
+                    <span class="category-item" onclick="quickSearch('软件')">软件</span>
+                    <span class="category-item" onclick="quickSearch('编程')">编程</span>
+                    <span class="category-item" onclick="quickSearch('破解')">破解</span>
+                    <span class="category-item" onclick="quickSearch('汉化')">汉化</span>
+                    <span class="category-item" onclick="quickSearch('合集')">合集</span>
+                    <span class="category-item" onclick="quickSearch('下载安装')">下载安装</span>
+                </div>
+                <div class="category-row">
+                    <span class="category-item" onclick="quickSearch('中文字幕')">中文字幕</span>
+                    <span class="category-item" onclick="quickSearch('打包')">打包</span>
+                    <span class="category-item" onclick="quickSearch('PPT模版')">PPT模版</span>
+                    <span class="category-item" onclick="quickSearch('设计素材')">设计素材</span>
+                    <span class="category-item" onclick="quickSearch('人工智能')">人工智能</span>
+                    <span class="category-item" onclick="quickSearch('深度学习')">深度学习</span>
+                    <span class="category-item" onclick="quickSearch('数据分析')">数据分析</span>
+                    <span class="category-item" onclick="quickSearch('广播剧')">广播剧</span>
+                </div>
             </div>
         </div>
 
         <!-- 结果区域 -->
         <div class="results-section" id="resultsSection">
             <div class="results-header">
-                <div class="results-count" id="resultsCount">找到 0 个结果</div>
+                <div class="results-info">
+                    <div>
+                        <div class="results-count" id="resultsCount">为您找到相关结果约 0 条</div>
+                        <div class="time-filter">
+                            <span>时间:</span>
+                            <button class="time-btn active" data-time="all">全部</button>
+                            <button class="time-btn" data-time="month">最近一月</button>
+                            <button class="time-btn" data-time="half-year">最近半年</button>
+                            <button class="time-btn" data-time="year">最近一年</button>
+                        </div>
+                    </div>
+                </div>
                 <div class="platform-filter">
                     <button class="platform-btn active" data-platform="all">全部</button>
                     <button class="platform-btn" data-platform="baidu">百度网盘</button>
@@ -492,6 +618,19 @@
         </div>
     </div>
 
+    <!-- 页脚 -->
+    <div class="footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="#">友链:</a>
+                <a href="#">百度</a>
+                <a href="#">必应</a>
+                <a href="#">百度网盘</a>
+            </div>
+            <div>©2010 - 2022 资源搜网站地图</div>
+        </div>
+    </div>
+
     <script>
         // 配置
         const CONFIG = {
@@ -503,6 +642,7 @@
         
         let currentResults = [];
         let currentFilter = 'all';
+        let currentTimeFilter = 'all';
         let currentPage = 1;
         let totalPages = 1;
         let currentKeyword = '';
@@ -576,7 +716,7 @@
             return results;
         }
 
-        // 修复后的搜索功能 - 使用PanSou正确的API格式
+        // 搜索功能
         async function performSearch(query = null, page = 1) {
             const searchInput = document.getElementById('searchInput');
             const keyword = query || searchInput.value.trim();
@@ -599,12 +739,13 @@
                 <div class="loading">
                     <div class="loading-spinner"></div>
                     <p>正在搜索中，请稍候...</p>
-                    <p style="font-size: 0.9rem; color: #888; margin-top: 10px;">首次访问可能需要等待服务启动...</p>
                 </div>
             `;
 
+            // 滚动到结果区域
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+
             try {
-                // 使用PanSou正确的API参数：kw而不是keyword，添加res=results参数
                 const url = `${CONFIG.API_BASE}/search?kw=${encodeURIComponent(keyword)}&res=results&src=all&page=${page}`;
                 console.log('请求URL:', url);
                 
@@ -617,39 +758,32 @@
                 const data = await response.json();
                 console.log('API完整响应:', data);
                 
-                // 修复: 适配实际的API响应格式
+                // 处理API响应
                 let results = [];
                 let total = 0;
                 
-                // 检查成功状态 - 支持 code: 0 和 code: 200
                 const isSuccess = (data.code === 0 || data.code === 200) && data.message === 'success';
                 
                 if (isSuccess && data.data) {
                     if (Array.isArray(data.data)) {
-                        // 直接是结果数组: {code: 0, data: [...]}
                         results = data.data;
                         total = data.total || data.data.length;
                     } else if (data.data.results && Array.isArray(data.data.results)) {
-                        // 嵌套的results数组: {code: 0, data: {results: [...]}}
                         results = data.data.results;
                         total = data.data.total || data.data.results.length;
                     } else if (data.data.merged_by_type) {
-                        // merged_by_type格式: {code: 0, data: {merged_by_type: {...}}}
                         console.log('收到merged_by_type格式，正在转换...');
                         results = convertMergedToResults(data.data.merged_by_type);
                         total = results.length;
                     }
                 } else if (data.results && Array.isArray(data.results)) {
-                    // 直接返回results数组
                     results = data.results;
                     total = data.total || data.results.length;
                 } else if (data.merged_by_type) {
-                    // 直接返回merged_by_type
                     console.log('收到merged_by_type格式，正在转换...');
                     results = convertMergedToResults(data.merged_by_type);
                     total = results.length;
                 } else if (Array.isArray(data)) {
-                    // 直接数组格式
                     results = data;
                     total = data.length;
                 } else {
@@ -657,9 +791,6 @@
                     results = [];
                     total = 0;
                 }
-                
-                console.log('解析出的结果数组:', results);
-                console.log('结果数量:', results.length);
                 
                 currentResults = results;
                 totalPages = Math.ceil(total / CONFIG.ITEMS_PER_PAGE);
@@ -697,29 +828,10 @@
                         <h3>搜索失败</h3>
                         <p>${errorMessage}</p>
                         ${troubleshootingTips ? `<p style="font-size: 0.9rem; color: #666; margin: 10px 0;">${troubleshootingTips}</p>` : ''}
-                        <button onclick="performSearch('${currentKeyword}', ${currentPage})" style="margin-top: 15px; padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer;">重试</button>
-                        <button onclick="testApiConnection()" style="margin-left: 10px; padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 6px; cursor: pointer;">测试连接</button>
+                        <button class="platform-btn" onclick="performSearch('${currentKeyword}', ${currentPage})" style="margin-top: 15px;">重试</button>
                     </div>
                 `;
             }
-        }
-
-        // 测试API连接
-        async function testApiConnection() {
-            try {
-                console.log(`测试连接: ${CONFIG.API_BASE}`);
-                const response = await fetchWithTimeout(`${CONFIG.API_BASE}/health`);
-                if (response.ok) {
-                    const data = await response.json();
-                    console.log('健康检查响应:', data);
-                    showError(`✅ API连接正常 - 插件数量: ${data.plugin_count || 0}, 频道数量: ${data.channels_count || 0}`);
-                    return;
-                }
-            } catch (error) {
-                console.error('连接测试失败:', error);
-            }
-            
-            showError('❌ API连接失败，请检查服务状态');
         }
 
         // 快速搜索
@@ -728,27 +840,11 @@
             performSearch(keyword);
         }
 
-        // 优化的结果显示函数
+        // 显示结果
         function displayResults(results) {
             const resultsGrid = document.getElementById('resultsGrid');
             
-            console.log('displayResults 接收到的数据:', results);
-            console.log('数据类型:', typeof results);
-            console.log('是否为数组:', Array.isArray(results));
-            
-            if (!Array.isArray(results)) {
-                console.error('结果不是数组格式');
-                resultsGrid.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">❌</div>
-                        <h3>数据格式错误</h3>
-                        <p>收到的搜索结果格式不正确</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            if (results.length === 0) {
+            if (!Array.isArray(results) || results.length === 0) {
                 resultsGrid.innerHTML = `
                     <div class="empty-state">
                         <div class="empty-icon">🔍</div>
@@ -783,13 +879,9 @@
 
             // 渲染结果
             const html = filteredResults.map(item => {
-                if (!item || typeof item !== 'object') {
-                    return '';
-                }
-                
                 const title = item.title || item.content || '未知资源';
                 const source = item.source || 'unknown';
-                const datetime = item.datetime ? new Date(item.datetime).toLocaleString('zh-CN') : '';
+                const datetime = item.datetime ? new Date(item.datetime).toLocaleDateString('zh-CN') : '';
                 
                 // 处理链接信息
                 let linkHtml = '';
@@ -799,58 +891,48 @@
                         const platform = getPlatformName(link.type);
                         return `
                             <a href="${link.url}" target="_blank" class="result-link" rel="noopener noreferrer">
-                                ${platform}${password} →
+                                ${platform}${password}
                             </a>
                         `;
                     }).join('');
                 } else {
-                    // 兼容旧格式
                     const url = item.url || item.link || item.download_url || '#';
                     const platform = getPlatformName(item.platform || item.source || '');
                     linkHtml = `
                         <a href="${url}" target="_blank" class="result-link" rel="noopener noreferrer">
-                            ${platform} →
+                            ${platform}
                         </a>
                     `;
                 }
                 
-                // 处理图片
-                let imageHtml = '';
-                if (item.images && Array.isArray(item.images) && item.images.length > 0) {
-                    imageHtml = `<img src="${item.images[0]}" alt="预览图" style="max-width: 100px; max-height: 60px; object-fit: cover; border-radius: 4px; margin-top: 8px;" onerror="this.style.display='none'">`;
-                }
-                
                 return `
                     <div class="result-item">
-                        <div class="result-title">${escapeHtml(title)}</div>
-                        <div class="result-meta">
-                            <span class="source-tag">${source}</span>
-                            ${datetime ? `<span class="result-time">${datetime}</span>` : ''}
-                        </div>
-                        ${imageHtml}
-                        <div class="result-links">
-                            ${linkHtml}
+                        <div class="result-header">
+                            <div class="result-icon">📁</div>
+                            <div class="result-content">
+                                <div class="result-title">${escapeHtml(title)}</div>
+                                <div class="result-details">
+                                    <div class="result-detail">
+                                        <span>文件大小</span>
+                                        <span class="result-size">994.9MB</span>
+                                    </div>
+                                    ${datetime ? `<div class="result-detail">${datetime}</div>` : ''}
+                                </div>
+                                <div class="result-links">
+                                    ${linkHtml}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 `;
-            }).filter(html => html.trim() !== '').join('');
+            }).join('');
 
-            if (html) {
-                resultsGrid.innerHTML = html;
-            } else {
-                resultsGrid.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">📁</div>
-                        <h3>无有效结果</h3>
-                        <p>返回的数据中没有有效的资源信息</p>
-                    </div>
-                `;
-            }
+            resultsGrid.innerHTML = html;
         }
 
         // 更新结果计数
         function updateResultsCount(count, total = null) {
-            const text = total ? `找到 ${total} 个结果，显示第 ${currentPage} 页` : `找到 ${count} 个结果`;
+            const text = total ? `为您找到相关结果约 ${total} 条` : `为您找到相关结果约 ${count} 条`;
             document.getElementById('resultsCount').textContent = text;
         }
 
@@ -903,12 +985,7 @@
                 'aliyun': ['aliyun', 'alipan', '阿里', 'ali'],
                 'quark': ['quark', '夸克'],
                 'tianyi': ['tianyi', '天翼'],
-                '115': ['115'],
-                'pikpak': ['pikpak'],
-                'xunlei': ['xunlei', '迅雷'],
-                'uc': ['uc'],
-                'mobile': ['mobile', '移动'],
-                '123': ['123']
+                '115': ['115']
             };
             
             for (const [type, keywords] of Object.entries(platformMap)) {
@@ -927,46 +1004,11 @@
                 'aliyun': '阿里云盘', 
                 'quark': '夸克网盘',
                 'tianyi': '天翼云盘',
-                'uc': 'UC网盘',
-                'mobile': '移动云盘',
-                '115': '115网盘',
-                'pikpak': 'PikPak',
-                'xunlei': '迅雷网盘',
-                '123': '123网盘',
-                'magnet': '磁力链接',
-                'ed2k': '电驴链接',
-                'others': '其他'
+                '115': '115网盘'
             };
             
             const type = getPlatformType(platform);
             return names[type] || platform || '未知平台';
-        }
-
-        // 格式化文件大小
-        function formatSize(size) {
-            if (!size) return '未知大小';
-            
-            if (typeof size === 'string') {
-                // 如果已经是格式化的字符串，直接返回
-                if (/\d+(\.\d+)?\s*(B|KB|MB|GB|TB)/i.test(size)) {
-                    return size;
-                }
-                // 尝试解析数字
-                const parsed = parseFloat(size);
-                if (isNaN(parsed)) return size;
-                size = parsed;
-            }
-            
-            const units = ['B', 'KB', 'MB', 'GB', 'TB'];
-            let index = 0;
-            let fileSize = Number(size);
-            
-            while (fileSize >= 1024 && index < units.length - 1) {
-                fileSize /= 1024;
-                index++;
-            }
-            
-            return `${fileSize.toFixed(1)} ${units[index]}`;
         }
 
         // HTML转义
@@ -980,6 +1022,7 @@
         // 页面初始化
         document.addEventListener('DOMContentLoaded', function() {
             const platformBtns = document.querySelectorAll('.platform-btn');
+            const timeBtns = document.querySelectorAll('.time-btn');
             
             // 平台过滤器
             platformBtns.forEach(btn => {
@@ -988,6 +1031,16 @@
                     this.classList.add('active');
                     currentFilter = this.dataset.platform;
                     displayResults(currentResults);
+                });
+            });
+
+            // 时间过滤器
+            timeBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    timeBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentTimeFilter = this.dataset.time;
+                    // 这里可以根据时间过滤重新搜索
                 });
             });
 
@@ -1000,18 +1053,8 @@
 
             // 输入框自动清理
             document.getElementById('searchInput').addEventListener('input', function(e) {
-                // 移除特殊字符，防止注入
                 this.value = this.value.replace(/[<>\"']/g, '');
             });
-        });
-
-        // 全局错误处理
-        window.addEventListener('error', function(e) {
-            console.error('页面错误:', e.error);
-        });
-
-        window.addEventListener('unhandledrejection', function(e) {
-            console.error('未处理的Promise错误:', e.reason);
         });
     </script>
 </body>
