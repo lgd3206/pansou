@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q5QY3KE9LT"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-Q5QY3KE9LT');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>无间道 - 搜索结果 | 资源搜</title>
+    <meta name="description" content="为您找到109条关于无间道的网盘资源，包含电影、音乐、电子书等多种格式">
+    
+    <style>
+        :root {
+            --primary-color: #4F46E5;
+            --primary-light: #6366F1;
+            --secondary-color: #06B6D4;
+            --text-primary: #1F2937;
+            --text-secondary: #6B7280;
+            --text-light: #9CA3AF;
+            --background: #FAFBFC;
+            --surface: #FFFFFF;
+            --border: #E5E7EB;
+            --border-light: #F3F4F6;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* 顶部广告位 */
+        .top-ad {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border-light);
+            padding: 12px 0;
+            text-align: center;
+        }
+
+        .ad-placeholder {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border: 2px dashed var(--border);
+            border-radius: var(--radius-md);
+            color: var(--text-light);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .top-ad .ad-placeholder {
+            max-width: 728px;
+            height: 90px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 头部搜索栏 */
+        .header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border-light);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-mini {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .logo-icon-mini {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .search-input-header {
+            width: 100%;
+            padding: 12px 50px 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-lg);
+            background: var(--background);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input-header:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .search-btn-header {
+            position: absolute;
+            right: 4px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            border: none;
+            border-radius: var(--radius-md);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 主要布局 */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .main-content {
+            min-height: 70vh;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        /* 结果区域 */
+        .results-section {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 25px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
+        }
+
+        .results-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .results-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .results-count {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .search-keyword {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .results-meta {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .time-filter {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .time-btn {
+            padding: 6px 12px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text-secondary);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+        }
+
+        .time-btn.active,
+        .time-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .platform-filter {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .platform-btn {
+            padding: 8px 16px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text-secondary);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .platform-btn.active,
+        .platform-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* 广告位 - 结果中间 */
+        .mid-results-ad {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin: 25px 0;
+            text-align: center;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .mid-results-ad .ad-placeholder {
+            max-width: 728px;
+            height: 250px;
+            margin: 0 auto;
+        }
+
+        /* 结果列表 */
+        .results-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .result-item {
+            background: var(--surface);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .result-item:hover {
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
+        }
+
+        .result-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 12px;
+        }
+
+        .result-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--warning), #f97316);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .result-main {
+            flex: 1;
+        }
+
+        .result-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .result-title .highlight {
+            background: linear-gradient(135deg, #fef3c7, #fbbf24);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: 700;
+        }
+
+        .result-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .file-size {
+            background: var(--border-light);
+            padding: 3px 8px;
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .upload-time {
+            color: var(--text-light);
+        }
+
+        .result-content {
+            margin-bottom: 12px;
+        }
+
+        .file-list {
+            background: var(--background);
+            border-radius: var(--radius-md);
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 0;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .file-item::before {
+            content: "📄";
+            font-size: 0.8rem;
+        }
+
+        .result-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .source-tag {
+            background: var(--success);
+            color: white;
+            padding: 4px 10px;
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* 侧边栏 */
+        .sidebar-section {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
+        }
+
+        .sidebar-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .sidebar-ad .ad-placeholder {
+            width: 100%;
+            height: 250px;
+        }
+
+        .related-searches {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .related-item {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: var(--radius-md);
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .related-item:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .hot-searches {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .hot-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 6px 8px;
+            border-radius: var(--radius-sm);
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+        }
+
+        .hot-item:hover {
+            background: var(--background);
+        }
+
+        .hot-rank {
+            width: 20px;
+            height: 20px;
+            background: var(--border);
+            color: var(--text-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .hot-rank.top3 {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+        }
+
+        /* 分页 */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin: 30px 0;
+            padding: 20px;
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .page-btn {
+            padding: 10px 16px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text-secondary);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .page-btn:hover:not(.disabled),
+        .page-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .page-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* 底部广告 */
+        .bottom-ad {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 25px;
+            text-align: center;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-md);
+            margin: 30px 0;
+        }
+
+        .bottom-ad .ad-placeholder {
+            max-width: 728px;
+            height: 250px;
+            margin: 0 auto;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .sidebar {
+                position: static;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
+            }
+
+            .search-bar {
+                max-width: none;
+            }
+
+            .results-header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 15px;
+            }
+
+            .time-filter,
+            .platform-filter {
+                justify-content: center;
+            }
+
+            .result-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .result-actions {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+
+            .pagination {
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+
+            .top-ad .ad-placeholder,
+            .mid-results-ad .ad-placeholder,
+            .bottom-ad .ad-placeholder {
+                max-width: 320px;
+                height: 100px;
+            }
+        }
+
+        /* 加载动画 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部广告位 1 -->
+    <div class="top-ad">
+        <div class="ad-placeholder">
+            📢 Google AdSense 顶部广告位 - 728x90
+        </div>
+    </div>
+
+    <!-- 头部搜索栏 -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo-mini">
+                    <div class="logo-icon-mini">🔍</div>
+                    <span>资源搜</span>
+                </a>
+                <div class="search-bar">
+                    <input type="text" class="search-input-header" value="无间道" placeholder="输入关键词搜索...">
+                    <button class="search-btn-header">🔍</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="main-layout">
+            <main class="main-content">
+                <!-- 搜索结果区域 -->
+                <section class="results-section fade-in">
+                    <div class="results-header">
+                        <div class="results-info">
+                            <div class="results-count">
+                                为您找到相关结果约 <span class="search-keyword">109</span> 条
+                            </div>
+                            <div class="results-meta">
+                                搜索关键词: <span class="search-keyword">无间道</span> | 用时 0.32 秒
+                            </div>
+                        </div>
+                        <div class="time-filter">
+                            <button class="time-btn active">全部</button>
+                            <button class="time-btn">最近一月</button>
+                            <button class="time-btn">最近半年</button>
+                            <button class="time-btn">最近一年</button>
+                        </div>
+                    </div>
+
+                    <div class="platform-filter">
+                        <button class="platform-btn active">全部平台</button>
+                        <button class="platform-btn">百度网盘</button>
+                        <button class="platform-btn">阿里云盘</button>
+                        <button class="platform-btn">夸克网盘</button>
+                        <button class="platform-btn">天翼云盘</button>
+                        <button class="platform-btn">115网盘</button>
+                    </div>
+
+                    <div class="results-list">
+                        <!-- 搜索结果项 1 -->
+                        <div class="result-item fade-in">
+                            <div class="result-header">
+                                <div class="result-icon">📁</div>
+                                <div class="result-main">
+                                    <h3 class="result-title">
+                                        <span class="highlight">无间道</span>三部曲完整收藏版 4K高清修复
+                                    </h3>
+                                    <div class="result-meta">
+                                        <div class="meta-item">
+                                            <span>📅</span>
+                                            <span class="upload-time">2023-06-24</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <span>📦</span>
+                                            <span class="file-size">15.2GB</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <span>🔥</span>
+                                            <span>下载 2.3k次</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="result-content">
+                                <div class="file-list">
+                                    <div class="file-item">无间道1.2002.4K.HDR.mkv (5.1GB)</div>
+                                    <div class="file-item">无间道2.2003.4K.HDR.mkv (4.8GB)</div>
+                                    <div class="file-item">无间道3.2003.4K.HDR.mkv (5.3GB)</div>
+                                    <div class="file-item">花絮及删减片段 (832MB)</div>
+                                </div>
+                            </div>
+
+                            <div class="result-actions">
+                                <a href="#" class="download-btn">
+                                    <span>📥</span>
+                                    <span>百度网盘下载</span>
+                                </a>
+                                <span class="source-tag">已验证</span>
+                            </div>
+                        </div>
+
+                        <!-- 搜索结果项 2 -->
+                        <div class="result-item fade-in">
+                            <div class="result-header">
+                                <div class="result-icon">🎵</div>
+                                <div class="result-main">
+                                    <h3 class="result-title">
+                                        <span class="highlight">无间道</span>电影原声带 + 主题曲合集
+                                    </h3>
+                                    <div class="result-meta">
+                                        <div class="meta-item">
+                                            <span>📅</span>
+                                            <span class="upload-time">2023-05-15</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <span>📦</span>
+                                            <span class="file-size">455MB</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <span>🔥</span>
+                                            <span>下载 1.1k次</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="result-content">
+                                <div class="file-list">
+                                    <div class="file-item">被遗忘的时光 - 蔡琴.flac (32MB)</div>
+                                    <div class="file-item">往事只能回味 - 张国荣.flac (28MB)</div>
+                                    <div class="file-item">无间道OST完整版.flac (395MB)</div>
+                                </div>
+                            </div>
+
+                            <div class="result-actions">
+                                <a href="#" class="download-btn">
+                                    <span>📥</span>
+                                    <span>阿里云盘下载</span>
+                                </a>
+                                <span class="source-tag">高质量</span>
+                            </div>
+                        </div>
+
+                        <!-- 中间广告位 2 -->
+                        <div class="mid-results-ad">
+                            <div class="ad-placeholder">
+                                📢 Google AdSense 内容中间广告位 - 728x250
+                            </div>
+                        </div>
+
+                        <!-- 搜索结果项 3 -->
+                        <div class="result-item fade-in">
+                            <div class="result-header">
+                                <div class="result-icon">📚</div>
+                                <div class="result-main">
+                                    <h3 class="result-title">
+                                        <span class="highlight">无间道</span>电影剧本 + 拍摄花絮纪录片
+                                    </h3>
+                                    <div class="result-meta">
+                                        <div class="meta-item">
+                                            <span>📅</span>
+                                            <span class="upload-time">2023-03-20</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <span>📦</span>
+                                            <span class="file-size">1.2GB</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <span>🔥</span>
+                                            <span>下载 856次</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="result-content">
+                                <div class="file-list">
+                                    <div class="file-item">无间道剧本完整版.pdf (15MB)</div>
+                                    <div class="file-item">拍摄花絮纪录片.mp4 (980MB)</div>
+                                    <div class="file-item">演员访谈录.mp4 (205MB)</div>
+                                </div>
+                            </div>
+
+                            <div class="result-actions">
+                                <a href="#" class="download-btn">
+                                    <span>📥</span>
+                                    <span>夸克网盘下载</span>
+                                </a>
+                                <span class="source-tag">珍藏版</span>
+                            </div>
+                        </div>
+
+                        <!-- 更多结果项... -->
+                        <div class="result-item fade-in">
+                            <div class="result-header">
+                                <div class="result-icon">🎬</div>
+                                <div class="result-main">
+                                    <h3 class="result-title">
+                                        香港经典电影合集 (含<span class="highlight">无间道</span>系列)
+                                    </h3>
+                                    <div class="result-meta">
+                                        <div class="meta-item">
+                                            <span>📅</span>
+                                            <span class="upload-time">2023-01-10</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <span>📦</span>
+                                            <span class="file-size">45.6GB</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <span>🔥</span>
+                                            <span>下载 3.2k次</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="result-content">
+                                <div class="file-list">
+                                    <div class="file-item">无间道三部曲 (15.2GB)</div>
+                                    <div class="file-item">英雄本色系列 (12.8GB)</div>
+                                    <div class="file-item">古惑仔系列 (17.6GB)</div>
+                                </div>
+                            </div>
+
+                            <div class="result-actions">
+                                <a href="#" class="download-btn">
+                                    <span>📥</span>
+                                    <span>百度网盘下载</span>
+                                </a>
+                                <span class="source-tag">合集</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 分页 -->
+                    <div class="pagination">
+                        <a href="#" class="page-btn disabled">上一页</a>
+                        <a href="#" class="page-btn active">1</a>
+                        <a href="#" class="page-btn">2</a>
+                        <a href="#" class="page-btn">3</a>
+                        <a href="#" class="page-btn">4</a>
+                        <a href="#" class="page-btn">5</a>
+                        <span class="page-btn disabled">...</span>
+                        <a href="#" class="page-btn">11</a>
+                        <a href="#" class="page-btn">下一页</a>
+                    </div>
+                </section>
+
+                <!-- 底部广告位 5 -->
+                <div class="bottom-ad">
+                    <div class="ad-placeholder">
+                        📢 Google AdSense 底部广告位 - 728x250
+                    </div>
+                </div>
+            </main>
+
+            <!-- 侧边栏 -->
+            <aside class="sidebar">
+                <!-- 侧边栏广告位 3 -->
+                <div class="sidebar-section sidebar-ad">
+                    <div class="ad-placeholder">
+                        📢 Google AdSense<br>侧边栏广告位<br>300x250
+                    </div>
+                </div>
+
+                <!-- 相关搜索 -->
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">相关搜索</h3>
+                    <div class="related-searches">
+                        <a href="#" class="related-item">无间道2</a>
+                        <a href="#" class="related-item">无间道3</a>
+                        <a href="#" class="related-item">无间道主题曲</a>
+                        <a href="#" class="related-item">刘德华电影</a>
+                        <a href="#" class="related-item">梁朝伟电影</a>
+                        <a href="#" class="related-item">香港警匪片</a>
+                    </div>
+                </div>
+
+                <!-- 侧边栏广告位 4 -->
+                <div class="sidebar-section sidebar-ad">
+                    <div class="ad-placeholder">
+                        📢 Google AdSense<br>侧边栏广告位 2<br>300x250
+                    </div>
+                </div>
+
+                <!-- 热门搜索 -->
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">热门搜索</h3>
+                    <div class="hot-searches">
+                        <a href="#" class="hot-item">
+                            <span class="hot-rank top3">1</span>
+                            <span>最新电影</span>
+                        </a>
+                        <a href="#" class="hot-item">
+                            <span class="hot-rank top3">2</span>
+                            <span>电视剧2024</span>
+                        </a>
+                        <a href="#" class="hot-item">
+                            <span class="hot-rank top3">3</span>
+                            <span>办公软件</span>
+                        </a>
+                        <a href="#" class="hot-item">
+                            <span class="hot-rank">4</span>
+                            <span>学习资料</span>
+                        </a>
+                        <a href="#" class="hot-item">
+                            <span class="hot-rank">5</span>
+                            <span>设计素材</span>
+                        </a>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <script>
+        // 页面加载动画
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach((el, index) => {
+                el.style.animationDelay = `${index * 0.1}s`;
+            });
+
+            // 平台过滤器
+            const platformBtns = document.querySelectorAll('.platform-btn');
+            platformBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    platformBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // 时间过滤器
+            const timeBtns = document.querySelectorAll('.time-btn');
+            timeBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    timeBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // 搜索功能
+            const searchInput = document.querySelector('.search-input-header');
+            const searchBtn = document.querySelector('.search-btn-header');
+            
+            searchBtn.addEventListener('click', function() {
+                const keyword = searchInput.value.trim();
+                if (keyword) {
+                    // 这里可以实现搜索逻辑
+                    console.log('搜索:', keyword);
+                }
+            });
+
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchBtn.click();
+                }
+            });
+        });
+
+        // 滚动时固定头部
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop) {
+                // 向下滚动
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                // 向上滚动
+                header.style.transform = 'translateY(0)';
+            }
+            lastScrollTop = scrollTop;
+        });
+    </script>
+</body>
+</html>
