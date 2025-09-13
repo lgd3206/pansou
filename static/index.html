@@ -518,13 +518,12 @@
             // 显示加载状态
             showLoading(true);
 
-            // 将搜索关键词存储到URL参数中，跳转到结果页面
+            // 直接跳转到搜索结果页面
             const searchUrl = `search-results.html?q=${encodeURIComponent(keyword)}`;
+            console.log('跳转到搜索结果页:', searchUrl);
             
-            // 模拟搜索延迟，实际项目中不需要
-            setTimeout(() => {
-                window.location.href = searchUrl;
-            }, 500);
+            // 立即跳转，不需要延迟
+            window.location.href = searchUrl;
         }
 
         // 显示/隐藏加载状态
