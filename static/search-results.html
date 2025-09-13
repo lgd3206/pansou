@@ -635,11 +635,8 @@
                 
                 const response = await fetchWithTimeout(url);
                 
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                }
-
                 const data = await response.json();
+                console.log('成功的API端点:', finalUrl);
                 console.log('API完整响应:', data);
                 
                 // 解析结果
