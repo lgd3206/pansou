@@ -362,143 +362,6 @@
             height: 250px;
         }
 
-        /* 结果区域 */
-        .results-section {
-            background: var(--surface);
-            border-radius: var(--radius-xl);
-            padding: 30px;
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--border-light);
-            display: none;
-        }
-
-        .results-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .results-count {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-
-        .platform-filter {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .platform-btn {
-            padding: 8px 16px;
-            border: 1px solid var(--border);
-            background: var(--surface);
-            color: var(--text-secondary);
-            border-radius: var(--radius-lg);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .platform-btn.active,
-        .platform-btn:hover {
-            background: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .results-grid {
-            display: grid;
-            gap: 20px;
-        }
-
-        .result-item {
-            background: var(--surface);
-            border-radius: var(--radius-lg);
-            padding: 24px;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border-light);
-            transition: all 0.3s ease;
-        }
-
-        .result-item:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-            border-color: var(--primary-color);
-        }
-
-        .result-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 12px;
-            line-height: 1.5;
-        }
-
-        .result-meta {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 16px;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .platform-tag,
-        .source-tag {
-            padding: 4px 12px;
-            border-radius: var(--radius-sm);
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: white;
-        }
-
-        .platform-tag {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-        }
-
-        .source-tag {
-            background: var(--success);
-        }
-
-        .result-time,
-        .result-size {
-            color: var(--text-light);
-            font-size: 0.8rem;
-        }
-
-        .result-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .result-link {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-            color: white;
-            padding: 10px 18px;
-            border-radius: var(--radius-lg);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            font-size: 0.9rem;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .result-link:hover {
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-md);
-        }
-
         /* 底部广告 */
         .bottom-ad {
             background: var(--surface);
@@ -516,41 +379,6 @@
             margin: 0 auto;
         }
 
-        /* 加载状态 */
-        .loading {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--text-secondary);
-        }
-
-        .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid var(--border);
-            border-top: 3px solid var(--primary-color);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* 空状态 */
-        .empty-state {
-            text-align: center;
-            padding: 80px 20px;
-            color: var(--text-secondary);
-        }
-
-        .empty-icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            color: var(--text-light);
-        }
-
         /* 错误提示 */
         .error-message {
             background: linear-gradient(135deg, var(--error), #dc2626);
@@ -560,39 +388,6 @@
             margin-bottom: 20px;
             display: none;
             box-shadow: var(--shadow-md);
-        }
-
-        /* 分页 */
-        .pagination {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            margin-top: 40px;
-        }
-
-        .page-btn {
-            padding: 10px 16px;
-            border: 1px solid var(--border);
-            background: var(--surface);
-            color: var(--text-secondary);
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        .page-btn:hover:not(:disabled),
-        .page-btn.active {
-            background: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .page-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
         }
 
         /* 响应式设计 */
@@ -659,15 +454,6 @@
                 font-size: 0.85rem;
             }
 
-            .results-header {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .platform-filter {
-                justify-content: center;
-            }
-
             .main-layout {
                 margin-top: 20px;
             }
@@ -727,7 +513,7 @@
                 <!-- 头部区域 -->
                 <header class="header fade-in-up">
                     <div class="logo-container">
-                        <a href="#" class="logo">
+                        <a href="/" class="logo">
                             <div class="logo-icon">🔍</div>
                             <span>资源搜</span>
                         </a>
@@ -797,23 +583,6 @@
                     </div>
                 </section>
 
-                <!-- 结果区域 -->
-                <section class="results-section" id="resultsSection">
-                    <div class="results-header">
-                        <div class="results-count" id="resultsCount">找到 0 个结果</div>
-                        <div class="platform-filter">
-                            <button class="platform-btn active" data-platform="all">全部平台</button>
-                            <button class="platform-btn" data-platform="baidu">百度网盘</button>
-                            <button class="platform-btn" data-platform="aliyun">阿里云盘</button>
-                            <button class="platform-btn" data-platform="quark">夸克网盘</button>
-                            <button class="platform-btn" data-platform="tianyi">天翼云盘</button>
-                            <button class="platform-btn" data-platform="115">115网盘</button>
-                        </div>
-                    </div>
-                    <div class="results-grid" id="resultsGrid"></div>
-                    <div class="pagination" id="pagination"></div>
-                </section>
-
                 <!-- 底部广告 -->
                 <div class="bottom-ad">
                     <div class="ad-placeholder">
@@ -842,42 +611,63 @@
     </div>
 
     <script>
-        // 配置保持不变
-        const CONFIG = {
-            API_BASE: '/api',
-            ITEMS_PER_PAGE: 20,
-            MAX_RETRY: 3,
-            TIMEOUT: 45000
-        };
-        
-        let currentResults = [];
-        let currentFilter = 'all';
-        let currentPage = 1;
-        let totalPages = 1;
-        let currentKeyword = '';
+        // 显示错误消息
+        function showError(message) {
+            const errorElement = document.getElementById('errorMessage');
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+            setTimeout(() => {
+                errorElement.style.display = 'none';
+            }, 5000);
+        }
+
+        // 搜索功能 - 跳转到搜索结果页面
+        function performSearch(query = null, page = 1) {
+            console.log('performSearch 被调用了'); // 调试信息
+            
+            const searchInput = document.getElementById('searchInput');
+            const keyword = query || searchInput.value.trim();
+            
+            console.log('搜索关键词:', keyword); // 调试信息
+            
+            if (!keyword) {
+                showError('请输入搜索关键词');
+                return;
+            }
+            
+            // 跳转到搜索结果页面
+            const searchParams = new URLSearchParams({
+                q: keyword,
+                page: page
+            });
+            
+            const targetUrl = `search.html?${searchParams.toString()}`;
+            console.log('准备跳转到:', targetUrl); // 调试信息
+            
+            window.location.href = targetUrl;
+        }
+
+        // 快速搜索
+        function quickSearch(keyword) {
+            console.log('quickSearch 被调用:', keyword); // 调试信息
+            document.getElementById('searchInput').value = keyword;
+            performSearch(keyword);
+        }
 
         // 页面加载动画
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('页面加载完成'); // 调试信息
+            
             // 添加渐入动画
             const elements = document.querySelectorAll('.fade-in-up');
             elements.forEach((el, index) => {
                 el.style.animationDelay = `${index * 0.1}s`;
             });
 
-            // 平台过滤器事件
-            const platformBtns = document.querySelectorAll('.platform-btn');
-            platformBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    platformBtns.forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    currentFilter = this.dataset.platform;
-                    displayResults(currentResults);
-                });
-            });
-
             // 回车搜索
             document.getElementById('searchInput').addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
+                    console.log('回车键搜索'); // 调试信息
                     performSearch();
                 }
             });
@@ -896,317 +686,6 @@
                 this.parentElement.style.transform = 'scale(1)';
             });
         });
-
-        // 其余JavaScript函数保持原有逻辑...
-        // [这里包含原有的所有搜索、显示、过滤等函数]
-
-        // 显示错误消息
-        function showError(message) {
-            const errorElement = document.getElementById('errorMessage');
-            errorElement.textContent = message;
-            errorElement.style.display = 'block';
-            setTimeout(() => {
-                errorElement.style.display = 'none';
-            }, 5000);
-        }
-
-        // 设置加载状态
-        function setLoading(isLoading) {
-            const searchBtn = document.getElementById('searchBtn');
-            const searchInput = document.getElementById('searchInput');
-            
-            searchBtn.disabled = isLoading;
-            searchInput.disabled = isLoading;
-            
-            if (isLoading) {
-                searchBtn.innerHTML = '⏳';
-            } else {
-                searchBtn.innerHTML = '🔍';
-            }
-        }
-
-        // 带超时的fetch
-        async function fetchWithTimeout(url, options = {}) {
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), CONFIG.TIMEOUT);
-            
-            try {
-                const response = await fetch(url, {
-                    ...options,
-                    signal: controller.signal
-                });
-                clearTimeout(timeoutId);
-                return response;
-            } catch (error) {
-                clearTimeout(timeoutId);
-                throw error;
-            }
-        }
-
-        // 将merged_by_type格式转换为results格式
-        function convertMergedToResults(mergedByType) {
-            const results = [];
-            
-            for (const [cloudType, links] of Object.entries(mergedByType)) {
-                links.forEach((linkInfo, index) => {
-                    results.push({
-                        unique_id: `${cloudType}-${index}-${Date.now()}`,
-                        title: linkInfo.note || linkInfo.title || '未知资源',
-                        content: linkInfo.note || linkInfo.title || '',
-                        datetime: linkInfo.datetime || new Date().toISOString(),
-                        source: linkInfo.source || 'unknown',
-                        links: [{
-                            type: cloudType,
-                            url: linkInfo.url,
-                            password: linkInfo.password || ''
-                        }],
-                        images: linkInfo.images || [],
-                        tags: []
-                    });
-                });
-            }
-            
-            return results;
-        }
-
-        // 搜索功能 - 跳转到搜索结果页面
-        function performSearch(query = null, page = 1) {
-            const searchInput = document.getElementById('searchInput');
-            const keyword = query || searchInput.value.trim();
-            
-            if (!keyword) {
-                showError('请输入搜索关键词');
-                return;
-            }
-            
-            // 跳转到搜索结果页面
-            const searchParams = new URLSearchParams({
-                q: keyword,
-                page: page
-            });
-            
-            window.location.href = `search.html?${searchParams.toString()}`;
-        }
-
-        // 快速搜索
-        function quickSearch(keyword) {
-            document.getElementById('searchInput').value = keyword;
-            performSearch(keyword);
-        }
-
-        // 其余函数保持原有逻辑...
-        // displayResults, updateResultsCount, updatePagination 等函数保持不变
-        // [这里包含其他原有函数的完整代码]
-
-        // 优化的结果显示函数
-        function displayResults(results) {
-            const resultsGrid = document.getElementById('resultsGrid');
-            
-            if (!Array.isArray(results)) {
-                console.error('结果不是数组格式');
-                resultsGrid.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">❌</div>
-                        <h3>数据格式错误</h3>
-                        <p>收到的搜索结果格式不正确</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            if (results.length === 0) {
-                resultsGrid.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">🔍</div>
-                        <h3>未找到相关资源</h3>
-                        <p>试试其他关键词或检查拼写</p>
-                    </div>
-                `;
-                return;
-            }
-
-            const filteredResults = currentFilter === 'all' 
-                ? results 
-                : results.filter(item => {
-                    if (item.links && Array.isArray(item.links)) {
-                        return item.links.some(link => link.type === currentFilter);
-                    }
-                    const platform = item.platform || item.source || '';
-                    return getPlatformType(platform) === currentFilter;
-                });
-
-            if (filteredResults.length === 0) {
-                resultsGrid.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">📁</div>
-                        <h3>该平台暂无资源</h3>
-                        <p>试试其他平台或关键词</p>
-                    </div>
-                `;
-                return;
-            }
-
-            const html = filteredResults.map(item => {
-                if (!item || typeof item !== 'object') {
-                    return '';
-                }
-                
-                const title = item.title || item.content || '未知资源';
-                const source = item.source || 'unknown';
-                const datetime = item.datetime ? new Date(item.datetime).toLocaleString('zh-CN') : '';
-                
-                let linkHtml = '';
-                if (item.links && Array.isArray(item.links)) {
-                    linkHtml = item.links.map(link => {
-                        const password = link.password ? ` 提取码: ${link.password}` : '';
-                        const platform = getPlatformName(link.type);
-                        return `
-                            <a href="${link.url}" target="_blank" class="result-link" rel="noopener noreferrer">
-                                ${platform}${password} →
-                            </a>
-                        `;
-                    }).join('');
-                } else {
-                    const url = item.url || item.link || item.download_url || '#';
-                    const platform = getPlatformName(item.platform || item.source || '');
-                    linkHtml = `
-                        <a href="${url}" target="_blank" class="result-link" rel="noopener noreferrer">
-                            ${platform} →
-                        </a>
-                    `;
-                }
-                
-                let imageHtml = '';
-                if (item.images && Array.isArray(item.images) && item.images.length > 0) {
-                    imageHtml = `<img src="${item.images[0]}" alt="预览图" style="max-width: 100px; max-height: 60px; object-fit: cover; border-radius: var(--radius-sm); margin-top: 8px;" onerror="this.style.display='none'">`;
-                }
-                
-                return `
-                    <div class="result-item">
-                        <div class="result-title">${escapeHtml(title)}</div>
-                        <div class="result-meta">
-                            <span class="source-tag">${source}</span>
-                            ${datetime ? `<span class="result-time">${datetime}</span>` : ''}
-                        </div>
-                        ${imageHtml}
-                        <div class="result-links">
-                            ${linkHtml}
-                        </div>
-                    </div>
-                `;
-            }).filter(html => html.trim() !== '').join('');
-
-            if (html) {
-                resultsGrid.innerHTML = html;
-            } else {
-                resultsGrid.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">📁</div>
-                        <h3>无有效结果</h3>
-                        <p>返回的数据中没有有效的资源信息</p>
-                    </div>
-                `;
-            }
-        }
-
-        // 更新结果计数
-        function updateResultsCount(count, total = null) {
-            const text = total ? `找到 ${total} 个结果，显示第 ${currentPage} 页` : `找到 ${count} 个结果`;
-            document.getElementById('resultsCount').textContent = text;
-        }
-
-        // 更新分页
-        function updatePagination() {
-            const pagination = document.getElementById('pagination');
-            
-            if (totalPages <= 1) {
-                pagination.innerHTML = '';
-                return;
-            }
-
-            let html = '';
-            
-            html += `<button class="page-btn" ${currentPage <= 1 ? 'disabled' : ''} onclick="changePage(${currentPage - 1})">上一页</button>`;
-            
-            const maxVisiblePages = 5;
-            let start = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-            let end = Math.min(totalPages, start + maxVisiblePages - 1);
-            
-            if (end - start < maxVisiblePages - 1) {
-                start = Math.max(1, end - maxVisiblePages + 1);
-            }
-
-            for (let i = start; i <= end; i++) {
-                html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
-            }
-            
-            html += `<button class="page-btn" ${currentPage >= totalPages ? 'disabled' : ''} onclick="changePage(${currentPage + 1})">下一页</button>`;
-            
-            pagination.innerHTML = html;
-        }
-
-        // 切换页面
-        function changePage(page) {
-            if (page < 1 || page > totalPages || page === currentPage) return;
-            performSearch(currentKeyword, page);
-        }
-
-        // 获取平台类型
-        function getPlatformType(platform) {
-            if (!platform) return 'other';
-            
-            const platformLower = platform.toLowerCase();
-            const platformMap = {
-                'baidu': ['baidu', 'baidupan', '百度'],
-                'aliyun': ['aliyun', 'alipan', '阿里', 'ali'],
-                'quark': ['quark', '夸克'],
-                'tianyi': ['tianyi', '天翼'],
-                '115': ['115'],
-                'pikpak': ['pikpak'],
-                'xunlei': ['xunlei', '迅雷'],
-                'uc': ['uc'],
-                'mobile': ['mobile', '移动'],
-                '123': ['123']
-            };
-            
-            for (const [type, keywords] of Object.entries(platformMap)) {
-                if (keywords.some(keyword => platformLower.includes(keyword))) {
-                    return type;
-                }
-            }
-            
-            return 'other';
-        }
-
-        // 获取平台名称
-        function getPlatformName(platform) {
-            const names = {
-                'baidu': '百度网盘',
-                'aliyun': '阿里云盘', 
-                'quark': '夸克网盘',
-                'tianyi': '天翼云盘',
-                'uc': 'UC网盘',
-                'mobile': '移动云盘',
-                '115': '115网盘',
-                'pikpak': 'PikPak',
-                'xunlei': '迅雷网盘',
-                '123': '123网盘',
-                'magnet': '磁力链接',
-                'ed2k': '电驴链接',
-                'others': '其他'
-            };
-            
-            const type = getPlatformType(platform);
-            return names[type] || platform || '未知平台';
-        }
-
-        // HTML转义
-        function escapeHtml(text) {
-            if (!text) return '';
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
 
         // 全局错误处理
         window.addEventListener('error', function(e) {
