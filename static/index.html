@@ -987,7 +987,19 @@
             const filteredResults = currentFilter === 'all' 
                 ? results 
                 : results.filter(item => {
-                    const platform = getPlatformType(item.platform || item.source || '');
+                    // 尝试多种方式获取平台信息进行过滤
+                    let platformInfo = '';
+                    if (item.platform) {
+                        platformInfo = item.platform;
+                    } else if (item.source) {
+                        platformInfo = item.source;
+                    } else if (item.links && item.links[0] && item.links[0].type) {
+                        platformInfo = item.links[0].type;
+                    } else if (item.url) {
+                        platformInfo = item.url;
+                    }
+                    
+                    const platform = getPlatformType(platformInfo);
                     return platform === currentFilter;
                 });
 
@@ -1006,8 +1018,34 @@
             const html = filteredResults.map(item => {
                 const title = item.title || item.content || '未知资源';
                 const url = item.url || (item.links && item.links[0] ? item.links[0].url : '#');
-                const source = getPlatformName(item.platform || item.source || '');
-                const datetime = item.datetime ? new Date(item.datetime).toLocaleDateString('zh-CN') : '';
+                
+                // 获取平台信息
+                let platformInfo = '';
+                let sourceDisplay = '';
+                if (item.platform) {
+                    platformInfo = item.platform;
+                    sourceDisplay = `plugin:${item.platform}`;
+                } else if (item.source) {
+                    platformInfo = item.source;
+                    sourceDisplay = `plugin:${item.source}`;
+                } else if (item.links && item.links[0] && item.links[0].type) {
+                    platformInfo = item.links[0].type;
+                    sourceDisplay = `plugin:${item.links[0].type}`;
+                } else if (item.url) {
+                    platformInfo = item.url;
+                    // 从URL推断来源
+                    if (url.includes('pan.quark.cn')) {
+                        sourceDisplay = 'plugin:quark';
+                    } else if (url.includes('pan.baidu.com')) {
+                        sourceDisplay = 'plugin:baidu';
+                    } else if (url.includes('aliyun') || url.includes('alipan')) {
+                        sourceDisplay = 'plugin:aliyun';
+                    } else {
+                        sourceDisplay = 'plugin:unknown';
+                    }
+                }
+                
+                const datetime = item.datetime ? new Date(item.datetime).toLocaleDateString('zh-CN') : '1/01/01';
                 
                 return `
                     <div class="result-item">
@@ -1017,10 +1055,10 @@
                                     ${escapeHtml(title)}
                                 </a>
                                 <div class="result-url">${url}</div>
-                                <div class="result-meta">
-                                    <span class="result-source">${source}</span>
-                                    ${datetime ? `<span class="result-time">${datetime}</span>` : ''}
-                                </div>
+                            </div>
+                            <div class="result-meta">
+                                <span class="result-source">${sourceDisplay}</span>
+                                <span class="result-time">${datetime}</span>
                             </div>
                         </div>
                     </div>
@@ -1113,7 +1151,21 @@
             return names[type] || platform || '未知平台';
         }
 
-        // HTML转义
+        // 获取平台名称
+        function getPlatformName(platform) {
+            const names = {
+                '115': '115网盘',
+                'aliyun': '阿里云盘', 
+                'baidu': '百度网盘',
+                'quark': '夸克网盘',
+                'tianyi': '天翼云盘',
+                'uc': 'UC网盘',
+                'xunlei': '迅雷网盘'
+            };
+            
+            const type = getPlatformType(platform);
+            return names[type] || platform || '未知平台';
+        }
         function escapeHtml(text) {
             if (!text) return '';
             const div = document.createElement('div');
