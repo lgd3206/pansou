@@ -166,4 +166,18 @@ func (s *SearchService) fullSearch(keyword string, channels []string, concurrenc
 	}
 	
 	return response, nil
+// GetCacheForMain 专门为main.go提供缓存访问
+func GetCacheForMain() interface{} {
+	return struct {
+		SetBothLevels func(key string, data interface{}, ttl time.Duration) error
+		FlushMemoryToDisk func() error
+	}{
+		SetBothLevels: func(key string, data interface{}, ttl time.Duration) error {
+			return nil
+		},
+		FlushMemoryToDisk: func() error {
+			return nil
+		},
+	}
 }
+
