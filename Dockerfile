@@ -19,6 +19,8 @@ RUN apk add --no-cache ca-certificates tzdata
 RUN mkdir -p /app/cache
 COPY --from=builder /app/pansou /app/pansou
 COPY --from=builder /app/static /app/static
+# 添加这行来复制 ads.txt 文件
+COPY --from=builder /app/ads.txt /app/ads.txt
 
 WORKDIR /app
 EXPOSE 8888
