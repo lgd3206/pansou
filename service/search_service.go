@@ -13,11 +13,11 @@ type SearchService struct {
 
 // PluginManager 接口
 type PluginManager interface {
-	GetPlugins() []Plugin
+	GetPlugins() []AsyncSearchPlugin
 }
 
-// Plugin 接口
-type Plugin interface {
+// AsyncSearchPlugin 接口
+type AsyncSearchPlugin interface {
 	Name() string
 	Priority() int
 }
@@ -36,16 +36,24 @@ type SearchResult struct {
 	Datetime time.Time `json:"datetime"`
 }
 
+// SimpleCache 简单缓存实现
+type SimpleCache struct{}
+
+func (s *SimpleCache) SetBothLevels(key string, data interface{}, ttl time.Duration) error {
+	return nil
+}
+
+func (s *SimpleCache) FlushMemoryToDisk() error {
+	return nil
+}
+
 // NewSearchService 创建新的搜索服务实例
 func NewSearchService(pluginManager interface{}) *SearchService {
-	// 类型断言来处理接口转换
 	if pm, ok := pluginManager.(PluginManager); ok {
 		return &SearchService{
 			pluginManager: pm,
 		}
 	}
-	
-	// 如果类型不匹配，返回一个带nil插件管理器的服务
 	return &SearchService{
 		pluginManager: nil,
 	}
@@ -54,6 +62,16 @@ func NewSearchService(pluginManager interface{}) *SearchService {
 // GetPluginManager 获取插件管理器
 func (s *SearchService) GetPluginManager() PluginManager {
 	return s.pluginManager
+}
+
+// SetGlobalCacheWriteManager 设置全局缓存写管理器
+func SetGlobalCacheWriteManager(manager interface{}) {
+	// 占位符实现
+}
+
+// GetCacheForMain 专门为main.go提供缓存访问
+func GetCacheForMain() *SimpleCache {
+	return &SimpleCache{}
 }
 
 // Search 执行搜索 - 修改后支持分阶段搜索
@@ -90,9 +108,7 @@ func (s *SearchService) quickSearch(keyword string, channels []string, concurren
 	
 	var results []SearchResult
 	
-	// 简化的搜索逻辑，避免未使用变量
 	if len(channels) > 0 && ctx.Err() == nil {
-		// 这里放置实际的搜索逻辑
 		results = make([]SearchResult, 0)
 	}
 	
@@ -106,17 +122,6 @@ func (s *SearchService) quickSearch(keyword string, channels []string, concurren
 	return response, nil
 }
 
-// SetGlobalCacheWriteManager 设置全局缓存写管理器 - 占位符函数
-func SetGlobalCacheWriteManager(manager interface{}) {
-	// 占位符实现
-}
-
-// GetEnhancedTwoLevelCache 获取增强的两级缓存 - 占位符函数
-func GetEnhancedTwoLevelCache() interface{} {
-	// 占位符实现
-	return nil
-}
-
 // mediumSearch 中等搜索：6秒超时
 func (s *SearchService) mediumSearch(keyword string, channels []string, concurrency int, forceRefresh bool, resultType string, sourceType string, plugins []string, cloudTypes []string, ext map[string]interface{}) (SearchResponse, error) {
 	quickResp, err := s.quickSearch(keyword, channels, concurrency, forceRefresh, resultType, sourceType, plugins, cloudTypes, ext)
@@ -127,7 +132,6 @@ func (s *SearchService) mediumSearch(keyword string, channels []string, concurre
 	ctx, cancel := context.WithTimeout(context.Background(), 6*time.Second)
 	defer cancel()
 	
-	// 使用ctx进行额外搜索
 	if ctx.Err() == nil {
 		// 额外搜索逻辑
 	}
@@ -155,7 +159,6 @@ func (s *SearchService) fullSearch(keyword string, channels []string, concurrenc
 	var results []SearchResult
 	var wg sync.WaitGroup
 	
-	// 实际搜索逻辑
 	wg.Wait()
 	
 	response := SearchResponse{
@@ -166,15 +169,4 @@ func (s *SearchService) fullSearch(keyword string, channels []string, concurrenc
 	}
 	
 	return response, nil
-// GetCacheForMain 专门为main.go提供缓存访问
-func GetCacheForMain() interface{} {
-	return struct {
-		SetBothLevels func(key string, data interface{}, ttl time.Duration) error
-		FlushMemoryToDisk func() error
-	}{
-		SetBothLevels: func(key string, data interface{}, ttl time.Duration) error {
-			return nil
-		},
-		FlushMemoryToDisk: func() error {
-			return nil
-		}
+}
