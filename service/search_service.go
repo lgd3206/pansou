@@ -18,11 +18,16 @@ type SearchService struct {
 	// 其他字段...
 }
 
-// 全局变量 - 确保这些变量在其他地方已定义
-var (
-	cacheInitialized       bool
-	enhancedTwoLevelCache  Cache // 根据实际类型调整
-)
+// PluginManager 接口定义（如果不存在的话）
+type PluginManager interface {
+	GetPlugins() []Plugin
+}
+
+// Plugin 接口定义（如果不存在的话）
+type Plugin interface {
+	Name() string
+	Priority() int
+}
 
 // Search 执行搜索 - 修改后支持分阶段搜索
 func (s *SearchService) Search(
