@@ -24,6 +24,28 @@ func SetupRouter(searchService *service.SearchService) *gin.Engine {
 	r.Use(LoggerMiddleware())
 	r.Use(util.GzipMiddleware()) // 添加压缩中间件
 	
+	// 添加 ads.txt 处理 - Google AdSense 验证文件
+	r.GET("/ads.txt", func(c *gin.Context) {
+		c.Header("Content-Type", "text/plain; charset=utf-8")
+		c.Header("Cache-Control", "public, max-age=86400") // 缓存24小时
+		c.File("./ads.txt")
+	})
+	
+	// 添加 robots.txt 处理 - 搜索引擎爬虫配置
+	r.GET("/robots.txt", func(c *gin.Context) {
+		c.Header("Content-Type", "text/plain; charset=utf-8")
+		c.Header("Cache-Control", "public, max-age=86400") // 缓存24小时
+		// 优先使用static目录下的robots.txt，如果不存在则使用根目录的
+		c.File("./static/robots.txt")
+	})
+	
+	// 添加 sitemap.xml 处理 - 网站地图
+	r.GET("/sitemap.xml", func(c *gin.Context) {
+		c.Header("Content-Type", "application/xml; charset=utf-8")
+		c.Header("Cache-Control", "public, max-age=86400") // 缓存24小时
+		c.File("./static/sitemap.xml")
+	})
+	
 	// 定义API路由组
 	api := r.Group("/api")
 	{
@@ -102,12 +124,6 @@ func SetupRouter(searchService *service.SearchService) *gin.Engine {
 		case "/favicon.ico":
 			// 网站图标（如果有的话）
 			c.File("./static/favicon.ico")
-		case "/robots.txt":
-			// 搜索引擎爬虫配置（如果有的话）
-			c.File("./static/robots.txt")
-		case "/sitemap.xml":
-			// 网站地图（如果有的话）
-			c.File("./static/sitemap.xml")
 		default:
 			// 所有其他请求都返回主页面（支持SPA路由）
 			c.File("./static/index.html")
