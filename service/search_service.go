@@ -98,6 +98,17 @@ func (s *SearchService) quickSearch(keyword string, channels []string, concurren
 	return response, nil
 }
 
+// SetGlobalCacheWriteManager 设置全局缓存写管理器 - 占位符函数
+func SetGlobalCacheWriteManager(manager interface{}) {
+	// 占位符实现
+}
+
+// GetEnhancedTwoLevelCache 获取增强的两级缓存 - 占位符函数
+func GetEnhancedTwoLevelCache() interface{} {
+	// 占位符实现
+	return nil
+}
+
 // mediumSearch 中等搜索：6秒超时
 func (s *SearchService) mediumSearch(keyword string, channels []string, concurrency int, forceRefresh bool, resultType string, sourceType string, plugins []string, cloudTypes []string, ext map[string]interface{}) (SearchResponse, error) {
 	quickResp, err := s.quickSearch(keyword, channels, concurrency, forceRefresh, resultType, sourceType, plugins, cloudTypes, ext)
