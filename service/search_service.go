@@ -37,9 +37,17 @@ type SearchResult struct {
 }
 
 // NewSearchService 创建新的搜索服务实例
-func NewSearchService(pluginManager PluginManager) *SearchService {
+func NewSearchService(pluginManager interface{}) *SearchService {
+	// 类型断言来处理接口转换
+	if pm, ok := pluginManager.(PluginManager); ok {
+		return &SearchService{
+			pluginManager: pm,
+		}
+	}
+	
+	// 如果类型不匹配，返回一个带nil插件管理器的服务
 	return &SearchService{
-		pluginManager: pluginManager,
+		pluginManager: nil,
 	}
 }
 
