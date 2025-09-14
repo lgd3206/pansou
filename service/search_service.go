@@ -1,3 +1,8 @@
+package service
+
+// Search 执行搜索 - 修改后支持分阶段搜索
+func (s *SearchService) Search(keyword string, channels []string, concurrency int, forceRefresh bool, resultType string, sourceType string, plugins []string, cloudTypes []string, ext map[string]interface{}, searchPhase int) (model.SearchResponse, error) {
+    // 现有的代码...
 // Search 执行搜索 - 修改后支持分阶段搜索
 func (s *SearchService) Search(keyword string, channels []string, concurrency int, forceRefresh bool, resultType string, sourceType string, plugins []string, cloudTypes []string, ext map[string]interface{}, searchPhase int) (model.SearchResponse, error) {
 	// 确保ext不为nil
