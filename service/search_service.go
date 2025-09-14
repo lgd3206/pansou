@@ -6,11 +6,10 @@ import (
 	"sync"
 	"time"
 	
-	// 这些包路径需要根据你的项目结构调整
-	"your-project/cache"
-	"your-project/config"
-	"your-project/model"
-	"your-project/pool"
+	"pansou/cache"
+	"pansou/config"
+	"pansou/model"
+	"pansou/pool"
 )
 
 // SearchService 搜索服务结构体
