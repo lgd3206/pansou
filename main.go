@@ -200,7 +200,8 @@ func startServer() {
 	}
 	
 	// 额外确保内存缓存也被保存（双重保障）
-	if mainCache := service.GetMainCacheInstance(); mainCache != nil {
+	mainCache := service.GetCacheForMain()
+	if mainCache != nil {
 		if err := mainCache.FlushMemoryToDisk(); err != nil {
 			log.Printf("内存缓存同步失败: %v", err)
 		} 
