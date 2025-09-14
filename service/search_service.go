@@ -177,7 +177,4 @@ func GetCacheForMain() interface{} {
 		},
 		FlushMemoryToDisk: func() error {
 			return nil
-		},
-	}
-}
-
+		}
