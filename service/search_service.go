@@ -88,7 +88,8 @@ func (s *SearchService) mediumSearch(keyword string, channels []string, concurre
 	ctx, cancel := context.WithTimeout(context.Background(), 6*time.Second)
 	defer cancel()
 	
-	_ = ctx // 使用ctx进行实际搜索
+	// 这里可以使用ctx进行实际搜索
+	_ = ctx
 	
 	response := SearchResponse{
 		Total:        len(quickResp.Results),
