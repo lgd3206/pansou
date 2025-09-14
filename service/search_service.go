@@ -8,7 +8,18 @@ import (
 
 // SearchService 搜索服务结构体
 type SearchService struct {
-	// 基本字段，根据需要添加
+	pluginManager PluginManager
+}
+
+// PluginManager 接口
+type PluginManager interface {
+	GetPlugins() []Plugin
+}
+
+// Plugin 接口
+type Plugin interface {
+	Name() string
+	Priority() int
 }
 
 // SearchResponse 搜索响应结构体
@@ -23,6 +34,18 @@ type SearchResponse struct {
 type SearchResult struct {
 	Title    string    `json:"title"`
 	Datetime time.Time `json:"datetime"`
+}
+
+// NewSearchService 创建新的搜索服务实例
+func NewSearchService(pluginManager PluginManager) *SearchService {
+	return &SearchService{
+		pluginManager: pluginManager,
+	}
+}
+
+// GetPluginManager 获取插件管理器
+func (s *SearchService) GetPluginManager() PluginManager {
+	return s.pluginManager
 }
 
 // Search 执行搜索 - 修改后支持分阶段搜索
