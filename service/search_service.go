@@ -1,20 +1,42 @@
 package service
 
-// Search 执行搜索 - 修改后支持分阶段搜索
-func (s *SearchService) Search(keyword string, channels []string, concurrency int, forceRefresh bool, resultType string, sourceType string, plugins []string, cloudTypes []string, ext map[string]interface{}, searchPhase int) (model.SearchResponse, error) {
-    // 现有的代码...
+import (
+	"context"
+	"strings"
+	"sync"
+	"time"
+	
+	// 这些包路径需要根据你的项目结构调整
+	"your-project/cache"
+	"your-project/config"
+	"your-project/model"
+	"your-project/pool"
+)
+
+// SearchService 搜索服务结构体
+type SearchService struct {
+	pluginManager PluginManager // 确保这个字段存在
+	// 其他字段...
+}
+
+// 全局变量 - 确保这些变量在其他地方已定义
+var (
+	cacheInitialized       bool
+	enhancedTwoLevelCache  Cache // 根据实际类型调整
+)
+
 // Search 执行搜索 - 修改后支持分阶段搜索
 func (s *SearchService) Search(
-    keyword string,
-    channels []string,
-    concurrency int,
-    forceRefresh bool,
-    resultType string,
-    sourceType string,
-    plugins []string,
-    cloudTypes []string,
-    ext map[string]interface{},
-    searchPhase int,
+	keyword string,
+	channels []string,
+	concurrency int,
+	forceRefresh bool,
+	resultType string,
+	sourceType string,
+	plugins []string,
+	cloudTypes []string,
+	ext map[string]interface{},
+	searchPhase int,
 ) (model.SearchResponse, error) {
 	// 确保ext不为nil
 	if ext == nil {
