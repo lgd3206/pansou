@@ -106,8 +106,7 @@ func initApp() {
 	go func() {
 		// 等待一小段时间确保service包完全初始化
 		time.Sleep(100 * time.Millisecond)
-		mainCache := service.GetCacheForMain()
-		if mainCache != nil {
+		if mainCache := service.GetEnhancedTwoLevelCache(); mainCache != nil {
 			globalCacheWriteManager.SetMainCacheUpdater(func(key string, data []byte, ttl time.Duration) error {
 				return mainCache.SetBothLevels(key, data, ttl)
 			})
@@ -200,8 +199,7 @@ func startServer() {
 	}
 	
 	// 额外确保内存缓存也被保存（双重保障）
-	mainCache := service.GetCacheForMain()
-	if mainCache != nil {
+	if mainCache := service.GetEnhancedTwoLevelCache(); mainCache != nil {
 		if err := mainCache.FlushMemoryToDisk(); err != nil {
 			log.Printf("内存缓存同步失败: %v", err)
 		} 
