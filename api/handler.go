@@ -32,10 +32,10 @@ func SearchHandler(c *gin.Context) {
 		// GET方式：从URL参数获取
 		// 获取keyword，必填参数
 		// 兼容两种参数名
-keyword := c.Query("kw")
-if keyword == "" {
-    keyword = c.Query("keyword")  // 添加这行兼容前端
-}
+		keyword := c.Query("kw")
+		if keyword == "" {
+			keyword = c.Query("keyword")  // 添加这行兼容前端
+		}
 		
 		// 处理channels参数，支持逗号分隔
 		channelsStr := c.Query("channels")
@@ -116,6 +116,20 @@ if keyword == "" {
 			cloudTypes = nil
 		}
 		
+		// 处理搜索阶段参数
+		searchPhase := 0
+		phaseStr := c.Query("phase")
+		if phaseStr != "" && phaseStr != " " {
+			phase := util.StringToInt(phaseStr)
+			// 验证phase参数范围
+			if phase >= 0 && phase <= 2 {
+				searchPhase = phase
+			} else {
+				// 无效的phase参数，使用默认值0
+				searchPhase = 0
+			}
+		}
+		
 		// 处理ext参数，JSON格式
 		var ext map[string]interface{}
 		extStr := c.Query("ext")
@@ -143,8 +157,9 @@ if keyword == "" {
 			ResultType:   resultType,
 			SourceType:   sourceType,
 			Plugins:      plugins,
-			CloudTypes:   cloudTypes, // 添加cloud_types到请求中
+			CloudTypes:   cloudTypes,
 			Ext:          ext,
+			SearchPhase:  searchPhase,  // 新增搜索阶段参数
 		}
 	} else {
 		// POST方式：从请求体获取
@@ -157,6 +172,11 @@ if keyword == "" {
 		if err := jsonutil.Unmarshal(data, &req); err != nil {
 			c.JSON(http.StatusBadRequest, model.NewErrorResponse(400, "无效的请求参数: "+err.Error()))
 			return
+		}
+		
+		// POST方式也需要验证和设置默认的searchPhase
+		if req.SearchPhase < 0 || req.SearchPhase > 2 {
+			req.SearchPhase = 0 // 设置为默认值
 		}
 	}
 	
@@ -191,11 +211,11 @@ if keyword == "" {
 	}
 	
 	// 可选：启用调试输出（生产环境建议注释掉）
-	// fmt.Printf("🔧 [调试] 搜索参数: keyword=%s, channels=%v, concurrency=%d, refresh=%v, resultType=%s, sourceType=%s, plugins=%v, cloudTypes=%v, ext=%v\n", 
-	//	req.Keyword, req.Channels, req.Concurrency, req.ForceRefresh, req.ResultType, req.SourceType, req.Plugins, req.CloudTypes, req.Ext)
+	// fmt.Printf("🔧 [调试] 搜索参数: keyword=%s, channels=%v, concurrency=%d, refresh=%v, resultType=%s, sourceType=%s, plugins=%v, cloudTypes=%v, searchPhase=%d, ext=%v\n", 
+	//	req.Keyword, req.Channels, req.Concurrency, req.ForceRefresh, req.ResultType, req.SourceType, req.Plugins, req.CloudTypes, req.SearchPhase, req.Ext)
 	
-	// 执行搜索
-	result, err := searchService.Search(req.Keyword, req.Channels, req.Concurrency, req.ForceRefresh, req.ResultType, req.SourceType, req.Plugins, req.CloudTypes, req.Ext)
+	// 执行搜索，传递searchPhase参数
+	result, err := searchService.Search(req.Keyword, req.Channels, req.Concurrency, req.ForceRefresh, req.ResultType, req.SourceType, req.Plugins, req.CloudTypes, req.Ext, req.SearchPhase)
 	
 	if err != nil {
 		response := model.NewErrorResponse(500, "搜索失败: "+err.Error())
@@ -208,4 +228,4 @@ if keyword == "" {
 	response := model.NewSuccessResponse(result)
 	jsonData, _ := jsonutil.Marshal(response)
 	c.Data(http.StatusOK, "application/json", jsonData)
-} 
+}
