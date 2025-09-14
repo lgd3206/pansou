@@ -103,17 +103,15 @@ func initApp() {
 	service.SetGlobalCacheWriteManager(globalCacheWriteManager)
 
 	// 延迟设置主缓存更新函数，确保service初始化完成
-	// 延迟设置主缓存更新函数，确保service初始化完成
-go func() {
-	// 等待一小段时间确保service包完全初始化
-	time.Sleep(100 * time.Millisecond)
-	mainCache := service.GetCacheForMain()
-	if mainCache != nil {
-		globalCacheWriteManager.SetMainCacheUpdater(func(key string, data []byte, ttl time.Duration) error {
-			return mainCache.SetBothLevels(key, data, ttl)
-		})
-	}
-}()
+	go func() {
+		// 等待一小段时间确保service包完全初始化
+		time.Sleep(100 * time.Millisecond)
+		mainCache := service.GetCacheForMain()
+		if mainCache != nil {
+			globalCacheWriteManager.SetMainCacheUpdater(func(key string, data []byte, ttl time.Duration) error {
+				return mainCache.SetBothLevels(key, data, ttl)
+			})
+		}
 	}()
 
 	// 确保异步插件系统初始化
@@ -198,13 +196,12 @@ func startServer() {
 	if globalCacheWriteManager != nil {
 		if err := globalCacheWriteManager.Shutdown(shutdownTimeout); err != nil {
 			log.Printf("缓存数据保存失败: %v", err)
+		}
+	}
+	
 	// 额外确保内存缓存也被保存（双重保障）
-mainCache := service.GetCacheForMain()
-if mainCache != nil {
-	if err := mainCache.FlushMemoryToDisk(); err != nil {
-		log.Printf("内存缓存同步失败: %v", err)
-	} 
-}
+	mainCache := service.GetCacheForMain()
+	if mainCache != nil {
 		if err := mainCache.FlushMemoryToDisk(); err != nil {
 			log.Printf("内存缓存同步失败: %v", err)
 		} 
