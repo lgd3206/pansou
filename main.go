@@ -15,6 +15,7 @@ import (
 	"time"
 
 	"golang.org/x/net/netutil"
+	"github.com/gin-gonic/gin"  // <- 添加这一行
 
 	"pansou/api"
 	"pansou/config"
@@ -139,6 +140,8 @@ func startServer() {
 
 	// 设置路由
 	router := api.SetupRouter(searchService)
+	// 设置静态文件路由
+setupStaticRoutes(router)
 
 	// 获取端口配置
 	port := config.AppConfig.Port
@@ -216,7 +219,22 @@ func startServer() {
 
 	fmt.Println("服务器已安全关闭")
 }
-
+// setupStaticRoutes 设置静态文件路由
+func setupStaticRoutes(router *gin.Engine) {
+    // Serve static files
+    router.Static("/static", "./static")
+    
+    // Handle robots.txt specifically
+    router.GET("/robots.txt", func(c *gin.Context) {
+        c.Header("Content-Type", "text/plain; charset=utf-8")
+        c.File("./static/robots.txt")
+    })
+    
+    // Optional: Add favicon.ico handler
+    router.GET("/favicon.ico", func(c *gin.Context) {
+        c.File("./static/favicon.ico") // Create this file if needed
+    })
+}
 // printServiceInfo 打印服务信息
 func printServiceInfo(port string, pluginManager *plugin.PluginManager) {
 	// 启动服务器
