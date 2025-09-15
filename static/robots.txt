@@ -1,0 +1,45 @@
+# Navigate to your PanSou project directory
+cd /path/to/your/pansou
+
+# Create static directory if it doesn't exist
+mkdir -p static
+
+# Create robots.txt file
+cat > static/robots.txt << 'EOF'
+User-agent: *
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+# Allow search engines to crawl API documentation
+Allow: /api/
+
+# Sitemap
+Sitemap: https://www.ziyuanso.net/sitemap.xml
+
+# Block AI training crawlers (maintain protection)
+User-agent: Amazonbot
+Disallow: /
+
+User-agent: Applebot-Extended
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: meta-externalagent
+Disallow: /
+EOF
