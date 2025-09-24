@@ -45,6 +45,20 @@ func SetupRouter(searchService *service.SearchService) *gin.Engine {
 		c.Header("Cache-Control", "public, max-age=86400") // 缓存24小时
 		c.File("./static/sitemap.xml")
 	})
+
+	// 添加隐私政策页面
+	r.GET("/privacy.html", func(c *gin.Context) {
+		c.Header("Content-Type", "text/html; charset=utf-8")
+		c.Header("Cache-Control", "public, max-age=3600") // 缓存1小时
+		c.File("./static/privacy.html")
+	})
+
+	// 添加服务条款页面
+	r.GET("/terms.html", func(c *gin.Context) {
+		c.Header("Content-Type", "text/html; charset=utf-8")
+		c.Header("Cache-Control", "public, max-age=3600") // 缓存1小时
+		c.File("./static/terms.html")
+	})
 	
 	// 定义API路由组
 	api := r.Group("/api")
