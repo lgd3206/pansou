@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="联系资源搜团队 - 意见建议、合作洽谈、技术支持、版权投诉等各种问题欢迎联系我们">
+    <meta name="keywords" content="联系我们,客服支持,意见反馈,合作洽谈,版权投诉,资源搜">
+    <title>联系我们 - 资源搜</title>
+    <link rel="canonical" href="https://www.ziyuanso.net/contact.html">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .logo svg {
+            width: 48px;
+            height: 48px;
+        }
+
+        .logo-text {
+            font-size: 2.2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .content {
+            line-height: 1.8;
+            color: #444;
+        }
+
+        h2 {
+            color: #667eea;
+            margin-top: 35px;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 8px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .contact-card {
+            background: rgba(255,255,255,0.8);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        .contact-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .contact-info {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .contact-email {
+            background: #667eea;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .contact-email:hover {
+            background: #5a6fd8;
+            transform: translateY(-1px);
+        }
+
+        .quick-contact {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 30px 0;
+        }
+
+        .response-time {
+            background: rgba(40, 167, 69, 0.1);
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .warning-box {
+            background: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .faq-item {
+            background: rgba(255,255,255,0.6);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 3px solid #667eea;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .faq-answer {
+            color: #666;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .back-link a {
+            color: #667eea;
+            text-decoration: none;
+            padding: 12px 25px;
+            border: 2px solid #667eea;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .back-link a:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        ul {
+            margin: 15px 0 15px 30px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 0 15px;
+                padding: 30px 25px;
+            }
+
+            .logo-text {
+                font-size: 1.8rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="faviconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#667eea"/>
+                            <stop offset="100%" style="stop-color:#764ba2"/>
+                        </linearGradient>
+                    </defs>
+                    <rect width="32" height="32" rx="6" fill="url(#faviconGrad)"/>
+                    <circle cx="14" cy="14" r="6" fill="none" stroke="white" stroke-width="2"/>
+                    <line x1="18" y1="18" x2="22" y2="22" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <span class="logo-text">资源搜</span>
+            </div>
+            <h1>联系我们</h1>
+            <p class="subtitle">我们很乐意听取您的意见和建议</p>
+        </div>
+
+        <div class="content">
+            <div class="quick-contact">
+                <h3 style="margin-top: 0; color: #667eea; text-align: center;">快速联系</h3>
+                <p style="text-align: center; margin-bottom: 20px;">如有任何问题或建议，请随时与我们联系</p>
+                <p style="text-align: center;">
+                    <a href="mailto:contact@ziyuanso.net" class="contact-email">
+                        📧 发送邮件：contact@ziyuanso.net
+                    </a>
+                </p>
+            </div>
+
+            <h2>联系方式</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">💬</div>
+                    <div class="contact-title">一般咨询</div>
+                    <div class="contact-info">网站使用问题、功能建议、合作洽谈</div>
+                    <a href="mailto:contact@ziyuanso.net" class="contact-email">contact@ziyuanso.net</a>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">⚖️</div>
+                    <div class="contact-title">版权投诉</div>
+                    <div class="contact-info">DMCA删除请求、版权侵权举报</div>
+                    <a href="mailto:dmca@ziyuanso.net" class="contact-email">dmca@ziyuanso.net</a>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">🔧</div>
+                    <div class="contact-title">技术支持</div>
+                    <div class="contact-info">网站故障反馈、技术问题咨询</div>
+                    <a href="mailto:support@ziyuanso.net" class="contact-email">support@ziyuanso.net</a>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">🤝</div>
+                    <div class="contact-title">商务合作</div>
+                    <div class="contact-info">广告投放、战略合作、API接入</div>
+                    <a href="mailto:business@ziyuanso.net" class="contact-email">business@ziyuanso.net</a>
+                </div>
+            </div>
+
+            <div class="response-time">
+                <h3 style="margin-top: 0; color: #28a745;">📅 响应时间承诺</h3>
+                <ul style="margin-left: 0; list-style: none;">
+                    <li style="margin: 8px 0;">✅ 一般咨询：1-2个工作日内回复</li>
+                    <li style="margin: 8px 0;">✅ 技术支持：24小时内回复</li>
+                    <li style="margin: 8px 0;">✅ 版权投诉：12小时内处理</li>
+                    <li style="margin: 8px 0;">✅ 商务合作：3个工作日内回复</li>
+                </ul>
+            </div>
+
+            <h2>常见问题</h2>
+            <div class="faq-item">
+                <div class="faq-question">Q: 如何举报违规或侵权内容？</div>
+                <div class="faq-answer">A: 请发送邮件至 dmca@ziyuanso.net，提供详细的侵权信息和证明材料，我们会在12小时内处理。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q: 网站出现搜索问题怎么办？</div>
+                <div class="faq-answer">A: 请联系 support@ziyuanso.net 并详细描述遇到的问题，包括浏览器类型、搜索关键词等信息。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q: 是否提供API接口服务？</div>
+                <div class="faq-answer">A: 我们正在开发API服务，如有商业合作需求请联系 business@ziyuanso.net 了解详情。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q: 如何提交功能建议？</div>
+                <div class="faq-answer">A: 欢迎发送邮件至 contact@ziyuanso.net，我们重视每一个用户的建议和反馈。</div>
+            </div>
+
+            <h2>联系须知</h2>
+            <div class="warning-box">
+                <h3 style="margin-top: 0; color: #ffc107;">📋 发送邮件前请注意</h3>
+                <ul>
+                    <li>请使用中文或英文进行沟通</li>
+                    <li>详细描述您的问题或建议</li>
+                    <li>版权投诉请提供必要的证明材料</li>
+                    <li>技术问题请包含错误截图或详细步骤</li>
+                    <li>我们不回复垃圾邮件或恶意邮件</li>
+                </ul>
+            </div>
+
+            <h2>其他联系方式</h2>
+            <p>除了邮件联系，您也可以通过以下方式了解我们的最新动态：</p>
+            <ul>
+                <li><strong>官方网站</strong>：www.ziyuanso.net</li>
+                <li><strong>服务状态</strong>：访问首页查看实时服务状态</li>
+                <li><strong>更新公告</strong>：重要更新会在网站首页发布</li>
+            </ul>
+
+            <div class="quick-contact" style="margin-top: 30px;">
+                <h3 style="margin-top: 0; color: #667eea; text-align: center;">💡 温馨提示</h3>
+                <p style="text-align: center;">我们致力于为所有用户提供优质的搜索服务。您的意见和建议是我们不断改进的动力，感谢您对资源搜的支持！</p>
+            </div>
+        </div>
+
+        <div class="back-link">
+            <a href="/">返回首页</a>
+        </div>
+    </div>
+</body>
+</html>
