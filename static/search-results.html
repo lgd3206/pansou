@@ -603,7 +603,8 @@
         </div>
     </div>
 
-    <!-- AdSense 优化和GDPR合规性脚本 -->
+    <!-- 性能优化、AdSense 优化和GDPR合规性脚本 -->
+    <script src="/static/js/performance-optimizer.js"></script>
     <script src="/static/js/adsense-optimizer.js"></script>
     <script src="/static/js/gdpr-compliance.js"></script>
 
@@ -633,6 +634,9 @@
 
         // 页面初始化
         document.addEventListener('DOMContentLoaded', function() {
+            // 初始化性能优化系统
+            window.performanceOptimizer = new PerformanceOptimizer();
+
             // 初始化广告系统
             initAdsenseSystem();
 
