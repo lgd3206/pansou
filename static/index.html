@@ -1109,28 +1109,10 @@
     <script src="/static/js/gdpr-compliance.js"></script>
 
     <script>
-        // 配置
+        // 简化的配置和变量（首页只需要跳转功能）
         const CONFIG = {
-            API_BASE: '/api',
-            ITEMS_PER_PAGE: 20,
-            MAX_RETRY: 3,
-            TIMEOUT: 45000,
-            PROGRESSIVE_PHASES: [
-                { phase: 0, timeout: 3000, name: '快速搜索' },
-                { phase: 1, timeout: 6000, name: '扩展搜索' },
-                { phase: 2, timeout: 12000, name: '完整搜索' }
-            ]
+            API_BASE: '/api'
         };
-        
-        let currentResults = [];
-        let currentFilter = 'all';
-        let currentPage = 1;
-        let totalPages = 1;
-        let currentKeyword = '';
-        let platformCounts = {};
-        let isSearching = false;
-        let searchAbortController = null;
-        let allProgressiveResults = new Map();
 
         // 显示错误消息
         function showError(message) {
@@ -1142,15 +1124,14 @@
             }, 5000);
         }
 
-        // 设置加载状态
+        // 设置加载状态（简化版）
         function setLoading(isLoading) {
             const searchBtn = document.getElementById('searchBtn');
             const searchInput = document.getElementById('searchInput');
-            
+
             searchBtn.disabled = isLoading;
             searchInput.disabled = isLoading;
-            isSearching = isLoading;
-            
+
             if (isLoading) {
                 searchBtn.innerHTML = '⏳';
             } else {
@@ -1270,117 +1251,19 @@
             document.getElementById('totalCount').textContent = counts.all;
         }
 
-        // 渐进式搜索主函数 - 新增
+        // 渐进式搜索主函数 - 修复：跳转到搜索结果页面
         async function performProgressiveSearch(query = null, page = 1) {
-            // 如果正在搜索，取消之前的搜索
-            if (isSearching && searchAbortController) {
-                searchAbortController.abort();
-            }
-
             const searchInput = document.getElementById('searchInput');
             const keyword = query || searchInput.value.trim();
-            
+
             if (!keyword) {
                 showError('请输入搜索关键词');
                 return;
             }
 
-            currentKeyword = keyword;
-            currentPage = page;
-            allProgressiveResults.clear();
-
-            const resultsSection = document.getElementById('resultsSection');
-            const resultsGrid = document.getElementById('resultsGrid');
-            
-            // 创建新的AbortController
-            searchAbortController = new AbortController();
-            
-            // 显示搜索界面
-            setLoading(true);
-            resultsSection.style.display = 'block';
-            resultsGrid.innerHTML = `
-                <div class="loading">
-                    <div class="loading-spinner"></div>
-                    <p>正在快速搜索中，请稍候...</p>
-                    <p style="font-size: 0.85rem; color: #6c757d; margin-top: 8px;">正在获取缓存和热门结果...</p>
-                </div>
-            `;
-
-            try {
-                let hasAnyResults = false;
-                
-                // 依次执行各个阶段的搜索
-                for (let i = 0; i < CONFIG.PROGRESSIVE_PHASES.length; i++) {
-                    const phase = CONFIG.PROGRESSIVE_PHASES[i];
-                    
-                    // 检查是否被取消
-                    if (searchAbortController.signal.aborted) {
-                        return;
-                    }
-
-                    try {
-                        console.log(`开始第${i + 1}阶段搜索: ${phase.name}`);
-                        const phaseResults = await searchPhase(keyword, phase.phase, phase.timeout);
-                        
-                        if (phaseResults && phaseResults.length > 0) {
-                            allProgressiveResults.set(phase.phase, phaseResults);
-                            hasAnyResults = true;
-                            
-                            // 合并所有阶段的结果
-                            const allResults = mergeAllPhaseResults();
-                            currentResults = allResults;
-                            
-                            // 计算并更新计数
-                            const counts = calculatePlatformCounts(allResults);
-                            updatePlatformCounts(counts);
-                            
-                            // 显示当前结果
-                            displayResults(allResults);
-                            
-                            // 如果不是最后一个阶段，显示继续搜索提示
-                            if (i < CONFIG.PROGRESSIVE_PHASES.length - 1) {
-                                showProgressiveLoading(i + 2);
-                            }
-                            
-                            console.log(`第${i + 1}阶段完成，获得${phaseResults.length}个结果，累计${allResults.length}个结果`);
-                        }
-                        
-                    } catch (error) {
-                        console.error(`第${i + 1}阶段搜索失败:`, error);
-                        // 如果不是取消操作，继续下一阶段
-                        if (!searchAbortController.signal.aborted) {
-                            continue;
-                        } else {
-                            return;
-                        }
-                    }
-                    
-                    // 如果是最后一个阶段，或者被取消了，跳出循环
-                    if (i === CONFIG.PROGRESSIVE_PHASES.length - 1 || searchAbortController.signal.aborted) {
-                        break;
-                    }
-                }
-                
-                // 搜索完成
-                setLoading(false);
-                removeProgressiveLoading();
-                updatePagination();
-                
-                if (!hasAnyResults) {
-                    showEmptyResults();
-                }
-                
-                console.log('渐进式搜索完成');
-                
-            } catch (error) {
-                console.error('渐进式搜索失败:', error);
-                setLoading(false);
-                removeProgressiveLoading();
-                
-                if (!searchAbortController.signal.aborted) {
-                    handleSearchError(error);
-                }
-            }
+            // 跳转到搜索结果页面
+            const searchUrl = `/static/search-results.html?kw=${encodeURIComponent(keyword)}${page > 1 ? `&page=${page}` : ''}`;
+            window.location.href = searchUrl;
         }
 
         // 执行单个阶段的搜索 - 新增
