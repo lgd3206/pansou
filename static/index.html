@@ -1068,6 +1068,10 @@
         <div style="margin-bottom: 20px;">
             <a href="/static/about.html" style="color: rgba(255,255,255,0.8); text-decoration: none; margin: 0 8px; font-size: 0.85rem;">关于我们</a>
             <span style="color: rgba(255,255,255,0.5);">|</span>
+            <a href="/static/search-tips.html" style="color: rgba(255,255,255,0.8); text-decoration: none; margin: 0 8px; font-size: 0.85rem;">搜索技巧</a>
+            <span style="color: rgba(255,255,255,0.5);">|</span>
+            <a href="/static/categories.html" style="color: rgba(255,255,255,0.8); text-decoration: none; margin: 0 8px; font-size: 0.85rem;">资源分类</a>
+            <span style="color: rgba(255,255,255,0.5);">|</span>
             <a href="/static/help.html" style="color: rgba(255,255,255,0.8); text-decoration: none; margin: 0 8px; font-size: 0.85rem;">使用帮助</a>
             <span style="color: rgba(255,255,255,0.5);">|</span>
             <a href="/static/contact.html" style="color: rgba(255,255,255,0.8); text-decoration: none; margin: 0 8px; font-size: 0.85rem;">联系我们</a>
@@ -1104,7 +1108,8 @@
         </div>
     </footer>
 
-    <!-- AdSense 优化和GDPR合规性脚本 -->
+    <!-- 性能优化、AdSense 优化和GDPR合规性脚本 -->
+    <script src="/static/js/performance-optimizer.js"></script>
     <script src="/static/js/adsense-optimizer.js"></script>
     <script src="/static/js/gdpr-compliance.js"></script>
 
@@ -1608,6 +1613,9 @@
 
         // 页面初始化
         document.addEventListener('DOMContentLoaded', function() {
+            // 初始化性能优化系统
+            window.performanceOptimizer = new PerformanceOptimizer();
+
             // 初始化广告系统
             initAdsenseSystem();
 
