@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="网盘资源分类大全 - 详细介绍各类网盘资源的特点和获取方法，帮您找到所需资源">
+    <meta name="keywords" content="网盘资源,资源分类,影视资源,软件下载,学习资料,电子书">
+    <title>资源分类 - 资源搜</title>
+    <link rel="canonical" href="https://www.ziyuanso.net/categories.html">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .category-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #f0f0f0;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .category-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 12px;
+        }
+
+        .category-description {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .category-examples {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 15px;
+        }
+
+        .examples-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+
+        .examples-list {
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+
+        .search-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            color: white;
+        }
+
+        .tips-section {
+            background: #e8f4f8;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+            border-left: 5px solid #667eea;
+        }
+
+        .tips-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .tips-list {
+            list-style: none;
+        }
+
+        .tips-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .tips-list li::before {
+            content: "💡";
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .back-link a {
+            color: #667eea;
+            text-decoration: none;
+            padding: 12px 24px;
+            border: 2px solid #667eea;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .back-link a:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+                margin: 10px;
+            }
+
+            .title {
+                font-size: 2rem;
+            }
+
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">网盘资源分类大全</h1>
+            <p class="subtitle">了解各类资源特点，提高搜索效率</p>
+        </div>
+
+        <div class="category-grid">
+            <!-- 影视娱乐 -->
+            <div class="category-card">
+                <span class="category-icon">🎬</span>
+                <h3 class="category-title">影视娱乐</h3>
+                <p class="category-description">
+                    包含各类电影、电视剧、综艺节目、动漫、纪录片等影视资源，涵盖国内外热门内容。
+                </p>
+                <div class="category-examples">
+                    <div class="examples-title">热门资源：</div>
+                    <div class="examples-list">
+                        电影大片、热播剧集、经典动漫、综艺节目、纪录片、短视频合集
+                    </div>
+                </div>
+                <a href="/?kw=电影" class="search-button">搜索影视资源 →</a>
+            </div>
+
+            <!-- 软件工具 -->
+            <div class="category-card">
+                <span class="category-icon">💻</span>
+                <h3 class="category-title">软件工具</h3>
+                <p class="category-description">
+                    专业软件、办公工具、系统软件、开发工具等各类应用软件及安装包。
+                </p>
+                <div class="category-examples">
+                    <div class="examples-title">常用软件：</div>
+                    <div class="examples-list">
+                        Adobe套件、Office办公、编程工具、设计软件、系统工具、安全软件
+                    </div>
+                </div>
+                <a href="/?kw=软件" class="search-button">搜索软件工具 →</a>
+            </div>
+
+            <!-- 游戏娱乐 -->
+            <div class="category-card">
+                <span class="category-icon">🎮</span>
+                <h3 class="category-title">游戏娱乐</h3>
+                <p class="category-description">
+                    各平台游戏资源，包括PC游戏、手机游戏、主机游戏及相关补丁、存档等。
+                </p>
+                <div class="category-examples">
+                    <div class="examples-title">游戏类型：</div>
+                    <div class="examples-list">
+                        3A大作、独立游戏、手机游戏、模拟器游戏、游戏修改器、存档补丁
+                    </div>
+                </div>
+                <a href="/?kw=游戏" class="search-button">搜索游戏资源 →</a>
+            </div>
+
+            <!-- 学习教育 -->
+            <div class="category-card">
+                <span class="category-icon">📚</span>
+                <h3 class="category-title">学习教育</h3>
+                <p class="category-description">
+                    在线课程、教学视频、学习资料、考试资源等教育相关内容。
+                </p>
+                <div class="category-examples">
+                    <div class="examples-title">学习资源：</div>
+                    <div class="examples-list">
+                        在线课程、技能培训、学科教程、考试资料、语言学习、职业培训
+                    </div>
+                </div>
+                <a href="/?kw=教程" class="search-button">搜索学习资源 →</a>
+            </div>
+
+            <!-- 电子书籍 -->
+            <div class="category-card">
+                <span class="category-icon">📖</span>
+                <h3 class="category-title">电子书籍</h3>
+                <p class="category-description">
+                    各类电子书籍、文档资料、期刊杂志等文字内容，支持多种格式。
+                </p>
+                <div class="category-examples">
+                    <div class="examples-title">书籍类型：</div>
+                    <div class="examples-list">
+                        小说文学、技术书籍、教材教辅、商业管理、生活健康、历史传记
+                    </div>
+                </div>
+                <a href="/?kw=电子书" class="search-button">搜索电子书籍 →</a>
+            </div>
+
+            <!-- 音乐音频 -->
+            <div class="category-card">
+                <span class="category-icon">🎵</span>
+                <h3 class="category-title">音乐音频</h3>
+                <p class="category-description">
+                    音乐专辑、单曲、有声书、播客、音效素材等各类音频资源。
+                </p>
+                <div class="category-examples">
+                    <div class="examples-title">音频类型：</div>
+                    <div class="examples-list">
+                        流行音乐、古典音乐、有声小说、播客节目、音效素材、背景音乐
+                    </div>
+                </div>
+                <a href="/?kw=音乐" class="search-button">搜索音频资源 →</a>
+            </div>
+
+            <!-- 图片素材 -->
+            <div class="category-card">
+                <span class="category-icon">🖼️</span>
+                <h3 class="category-title">图片素材</h3>
+                <p class="category-description">
+                    摄影作品、设计素材、壁纸图片、图标资源等各类图像内容。
+                </p>
+                <div class="category-examples">
+                    <div class="examples-title">素材类型：</div>
+                    <div class="examples-list">
+                        高清壁纸、设计素材、摄影作品、图标字体、UI素材、插画作品
+                    </div>
+                </div>
+                <a href="/?kw=图片" class="search-button">搜索图片素材 →</a>
+            </div>
+
+            <!-- 办公文档 -->
+            <div class="category-card">
+                <span class="category-icon">📄</span>
+                <h3 class="category-title">办公文档</h3>
+                <p class="category-description">
+                    PPT模板、Word文档、Excel表格、设计模板等办公相关资料。
+                </p>
+                <div class="category-examples">
+                    <div class="examples-title">文档类型：</div>
+                    <div class="examples-list">
+                        PPT模板、简历模板、合同模板、报告模板、表格工具、设计模板
+                    </div>
+                </div>
+                <a href="/?kw=PPT" class="search-button">搜索办公文档 →</a>
+            </div>
+        </div>
+
+        <!-- 使用技巧 -->
+        <div class="tips-section">
+            <h3 class="tips-title">🎯 资源搜索技巧</h3>
+            <ul class="tips-list">
+                <li>使用具体的资源名称，避免过于宽泛的关键词</li>
+                <li>添加版本号、年份、格式等详细信息提高搜索精度</li>
+                <li>尝试使用同义词或相关词汇进行多次搜索</li>
+                <li>关注资源的文件大小和格式是否合理</li>
+                <li>优先选择信誉良好的网盘平台资源</li>
+                <li>定期清理下载的文件，保持设备空间充足</li>
+                <li>使用杀毒软件扫描下载的可执行文件</li>
+                <li>尊重版权，合理使用网盘资源</li>
+            </ul>
+        </div>
+
+        <div class="back-link">
+            <a href="/">返回首页开始搜索</a>
+        </div>
+    </div>
+
+    <script>
+        // 添加点击统计
+        document.querySelectorAll('.search-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const keyword = new URL(this.href).searchParams.get('kw');
+                console.log(`用户点击搜索: ${keyword}`);
+            });
+        });
+
+        // 添加卡片悬停效果统计
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                const title = this.querySelector('.category-title').textContent;
+                console.log(`用户查看分类: ${title}`);
+            });
+        });
+    </script>
+</body>
+</html>
