@@ -60,4 +60,20 @@
         <priority>0.8</priority>
     </url>
 
+    <!-- 搜索技巧页 -->
+    <url>
+        <loc>https://www.ziyuanso.net/search-tips.html</loc>
+        <lastmod>2024-12-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- 资源分类页 -->
+    <url>
+        <loc>https://www.ziyuanso.net/categories.html</loc>
+        <lastmod>2024-12-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
 </urlset>
